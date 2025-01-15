@@ -10,6 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.dreamdex.navigation.Navigation
 import com.example.dreamdex.ui.theme.DreamDexTheme
 import com.example.dreamdex.viewModel.CharacterViewModel
 
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     val characterViewModel = viewModel<CharacterViewModel>()
                     val state = characterViewModel.state
 
-                    Text(text = state.characters.toString())
+                    Navigation()
                 }
             }
         }

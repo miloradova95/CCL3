@@ -6,5 +6,6 @@ data class Details(
     val about: String = "",
     val anime: List<String> = emptyList(),
     val manga: List<String> = emptyList(),
-    val image_url: String = ""
+    val image_url: String = "",
+    val rating: String = ""
 )
