@@ -3,7 +3,6 @@ package com.example.dreamdex.utils
 import com.example.dreamdex.domain.ApiInterface
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 object RetrofitInstance {
     val api: ApiInterface by lazy {

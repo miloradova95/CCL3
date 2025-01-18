@@ -1,13 +1,20 @@
 package com.example.dreamdex.domain
 
 import com.example.dreamdex.models.CharactersList
+import com.example.dreamdex.models.Data
+import com.example.dreamdex.models.GraphQLQuery
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface ApiInterface {
-    @GET("characters?")
-    suspend fun getCharacters(
-        @Query("page") page: Int
+    @POST("graphql") // Adjust endpoint if necessary
+    suspend fun getCharactersList(
+        @Body query: GraphQLQuery
     ): Response<CharactersList>
+
+    @POST("graphql")
+    suspend fun getCharacterDetails(
+        @Body query: GraphQLQuery
+    ): Response<Data>
 }

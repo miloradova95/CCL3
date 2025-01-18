@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material3.AlertDialogDefaults.containerColor
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,9 +35,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -79,25 +83,26 @@ fun HomeScreen(navController: NavHostController) {
                 }
             }
 
-        }
+        },containerColor = Color.Transparent
     )
+
 }
 
 @Composable
 fun ItemUi(itemIndex: Int, characterList: List<Data>, navController: NavHostController) {
-    Card (
+    Card(
         Modifier
             .wrapContentSize()
             .padding(10.dp)
             .clickable {
-
+                navController.navigate("Details screen/${characterList[itemIndex].id}")
             },
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
             AsyncImage(
-                model = characterList[itemIndex].image_url ?: R.drawable.placeholder_image,
-                contentDescription = characterList[itemIndex].name,
+                model = characterList[itemIndex].image?.large ?: R.drawable.placeholder_image, // Adjusted for AniList
+                contentDescription = characterList[itemIndex].name?.full ?: "Character", // Adjusted for AniList
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(10.dp)),
@@ -110,10 +115,9 @@ fun ItemUi(itemIndex: Int, characterList: List<Data>, navController: NavHostCont
                     .padding(6.dp)
             ) {
                 Text(
-                    text = characterList[itemIndex].name,
+                    text = characterList[itemIndex].name?.full ?: "Unknown", // Adjusted for AniList
                     modifier = Modifier
                         .fillMaxWidth(),
-                        //.basicMarquee(),
                     textAlign = TextAlign.Center,
                     color = Color.Black,
                     fontWeight = FontWeight.Bold,
@@ -128,7 +132,7 @@ fun ItemUi(itemIndex: Int, characterList: List<Data>, navController: NavHostCont
                 Row(Modifier.align(Alignment.End)) {
                     Icon(imageVector = Icons.Rounded.Star, contentDescription = "")
                     Text(
-                        text = characterList[itemIndex].rating ?: "N/A",
+                        text = characterList[itemIndex].rating ?: "N/A", // Updated to reflect the rating field
                         textAlign = TextAlign.Start,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -145,9 +149,27 @@ fun ItemUi(itemIndex: Int, characterList: List<Data>, navController: NavHostCont
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar() {
-    TopAppBar(title = { Text(text = "Character Browser") })
+    TopAppBar(
+        title = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Characters",
+                    style = TextStyle(
+                        fontFamily = FontFamily.Serif, // Replace with your custom FontFamily
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+                )
+            }
+        },
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = Color.Transparent
+        )
+    )
 }
