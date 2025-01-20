@@ -218,4 +218,31 @@ Success Criteria:
 	•	User confidence
 	•	User hesitation/frustration
 
+### Execution:
+
+**Environment:** They are in a quiet environment, with minimal distractions.
+**Participants:** These tests will be conducted remotely and in-person.
+**Observation Tools:** A stopwatch for task timing and laptop for note-taking.
+**Post-Task Evaluation:** After each task, the participant will be asked to rate both the difficulty of completing the task and their confidence level in completing it.
+**System Usability Scale (SUS):** After completing all tasks, participants will answer the SUS questionnaire to assess overall usability. 
+
+### Task Evaluation Instrument: 
+
+**Difficulty:** "How was the task?" (1 = Very Difficult, 7 = Very Easy)
+**Confidence:** “How confident did you feel completing this task?” (1 = Very Confident, 7 = Very Unconfident)
+
+### SUS: 5-point Likert scale (1 = Strongly Disagree, 5 = Strongly Agree)
+
+1.) I think that I would like to use this system frequently.
+2.) I thought the system was easy to use.
+3.) thought there was too much inconsistency in this system.
+4.) would imagine that most people would learn to use this system very quickly.
+5.) felt very confident using the system.
+6.) The feedback provided (e.g., icons, notifications) was helpful and timely.
+7.) The app's design is visually appealing.
+8.) The icons used in the app were familiar and easy to understand.
+9.) I always knew where I was in the app.
+10.) I felt the app had all the functionality I needed. 
+Open-Ended Question: Is there a feature you wish the app had?
+
 
