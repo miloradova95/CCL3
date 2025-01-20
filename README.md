@@ -168,7 +168,9 @@ DV: Users’ ability to orient themselves and complete tasks efficiently.
 **Task 1: Filtering**
 
 Scenario: You want to find characters aged 30 by using the filter option.
+
 Goal: Apply the filter to display only characters aged 30.
+
 Success Criteria: 
 - Time on Task: time taken to locate and set filter.
 - Task completion rate: percentage of users successfully applying the correct age filter.
@@ -177,7 +179,9 @@ Success Criteria:
 **Task 2: Details Page**
 
 Scenario: You want to learn more about the 'Character of the Day.'
+
 Goal: Navigate to the details page of the 'Character of the Day.'
+
 Success Criteria: 
 - Time on Task: time taken to locate and open the details page.
 - Task completion rate: percentage of users successfully accessing the correct details page.
@@ -186,7 +190,9 @@ Success Criteria:
 **Task 3: Search and Favorite**
 
 Scenario: You search for “Luffy” and add him to your favorites.
+
 Goal: Add Luffy to your Favorites and confirm that he appears in the Favorites section.
+
 Success Criteria: 
 - Time on Task: time taken to locate Luffy, favorite him, and verify in Favorites.
 - Task completion rate: percentage of users successfully finding and adding Luffy to Favorites and confirming the action.
@@ -195,7 +201,9 @@ Success Criteria:
 **Task 4: Unfavoriting a Character**
 
 Scenario: You decide to remove “Luffy” from your Favorites.
+
 Goal: Locate Luffy in the Favorites page and unfavorite him.
+
 Success Criteria: 
 - Time on Task: time taken to locate Luffy in Favorites and unfavorite him.
 - Task completion rate: percentage of users successfully removing Luffy from Favorites.
@@ -204,7 +212,9 @@ Success Criteria:
 **Task 5: Guide for Beginners**
 
 Scenario: You’re a new user and want to find a guide that explains how to use the app.
+
 Goal: Locate and access the “Guide for Beginners”.
+
 Success Criteria: 
 - Time on Task: time taken to locate the guide.
 - Task completion rate: percentage of users successfully finding and opening the guide.
@@ -220,28 +230,42 @@ Success Criteria:
 
 ### Execution:
 
-**Environment:** They are in a quiet environment, with minimal distractions.
-**Participants:** These tests will be conducted remotely and in-person.
-**Observation Tools:** A stopwatch for task timing and laptop for note-taking.
-**Post-Task Evaluation:** After each task, the participant will be asked to rate both the difficulty of completing the task and their confidence level in completing it.
-**System Usability Scale (SUS):** After completing all tasks, participants will answer the SUS questionnaire to assess overall usability. 
+Environment: They are in a quiet environment, with minimal distractions.
+
+Participants: These tests will be conducted remotely and in-person.
+
+Observation Tools: A stopwatch for task timing and laptop for note-taking.
+
+Post-Task Evaluation: After each task, the participant will be asked to rate both the difficulty of completing the task and their confidence level in completing it.
+
+System Usability Scale (SUS): After completing all tasks, participants will answer the SUS questionnaire to assess overall usability. 
 
 ### Task Evaluation Instrument: 
 
-**Difficulty:** "How was the task?" (1 = Very Difficult, 7 = Very Easy)
-**Confidence:** “How confident did you feel completing this task?” (1 = Very Confident, 7 = Very Unconfident)
+Difficulty: "How was the task?" (1 = Very Difficult, 7 = Very Easy)
+
+Confidence: “How confident did you feel completing this task?” (1 = Very Confident, 7 = Very Unconfident)
 
 ### SUS: 5-point Likert scale (1 = Strongly Disagree, 5 = Strongly Agree)
 
 1.) I think that I would like to use this system frequently.
+
 2.) I thought the system was easy to use.
+
 3.) thought there was too much inconsistency in this system.
+
 4.) would imagine that most people would learn to use this system very quickly.
+
 5.) felt very confident using the system.
+
 6.) The feedback provided (e.g., icons, notifications) was helpful and timely.
+
 7.) The app's design is visually appealing.
+
 8.) The icons used in the app were familiar and easy to understand.
+
 9.) I always knew where I was in the app.
+
 10.) I felt the app had all the functionality I needed. 
 Open-Ended Question: Is there a feature you wish the app had?
 
