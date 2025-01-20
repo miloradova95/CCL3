@@ -138,6 +138,29 @@ Reason: While helpful, it’s not essential for most users, as the app is design
 Improvements: Guides for New Users
 Visibly adding a guide box at the bottom of the homepage, below the “Character of the Day.” When clicked, it could navigate users to a page with visual guides and step-by-step instructions for the app’s primary features.
 
+**Severity Ratings:**
+
+	•	0 - Not a usability problem
+	•	1 - Cosmetic problem only
+	•	2 - Minor usability problem
+	•	3 - Major usability problem
+	•	4 - Usability catastrophe
+ 
+----------------------------------------------------------------------------------------------------------------
+
+# Userbility Test Plan:
+
+**Hypothesis:**
+
+Consistent navigation placement, intuitive icons, and clear feedback mechanisms will positively impact users' ability to orient themselves within the app and complete tasks efficiently.
+
+**Experimental Research Question:**
+
+How do consistent navigation elements and intuitive design features affect users’ ability to orient themselves and complete tasks efficiently within the app?
+IV: Consistent navigation elements and intuitive design features.
+DV: Users’ ability to orient themselves and complete tasks efficiently.
+
+
 
 
 
