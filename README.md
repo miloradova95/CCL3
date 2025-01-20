@@ -166,6 +166,7 @@ DV: Users’ ability to orient themselves and complete tasks efficiently.
 ### Task-based Usability Testing:
 
 **Task 1: Filtering**
+
 Scenario: You want to find characters aged 30 by using the filter option.
 Goal: Apply the filter to display only characters aged 30.
 Success Criteria: 
@@ -174,39 +175,47 @@ Success Criteria:
 - Could the user complete this confidently?
 
 **Task 2: Details Page**
-Scenario: You want to learn more about today’s featured character.
-Goal: Navigate to the details page of the "Character of the Day."
+
+Scenario: You want to learn more about the 'Character of the Day.'
+Goal: Navigate to the details page of the 'Character of the Day.'
 Success Criteria: 
-Time on Task: time taken to locate and open the details page.
-Task completion rate: percentage of users successfully accessing the correct details page.
-Instances of pauses or confusion during navigation.
-Task 3: Search and Favorite
+- Time on Task: time taken to locate and open the details page.
+- Task completion rate: percentage of users successfully accessing the correct details page.
+- Instances of pauses or confusion during navigation.
+
+**Task 3: Search and Favorite**
+
 Scenario: You search for “Luffy” and add him to your favorites.
 Goal: Add Luffy to your Favorites and confirm that he appears in the Favorites section.
 Success Criteria: 
-Time on Task: time taken to locate Luffy, favorite him, and verify in Favorites.
-Task completion rate: percentage of users successfully finding and adding Luffy to Favorites and confirming the action.
-Were users confident in searching and favoriting characters?
-Task 4: Unfavoriting a Character
+- Time on Task: time taken to locate Luffy, favorite him, and verify in Favorites.
+- Task completion rate: percentage of users successfully finding and adding Luffy to Favorites and confirming the action.
+- Were users confident in searching and favoriting characters?
+
+**Task 4: Unfavoriting a Character**
+
 Scenario: You decide to remove “Luffy” from your Favorites.
-Goal: Locate Luffy in the Favorites section and unfavorite him.
+Goal: Locate Luffy in the Favorites page and unfavorite him.
 Success Criteria: 
-Time on Task: time taken to locate Luffy in Favorites and unfavorite him..
-Task completion rate: percentage of users successfully removing Luffy from Favorites.
-Did the user hesitate during the process of unfavoriting?
-Task 5: Guide for Beginners
+- Time on Task: time taken to locate Luffy in Favorites and unfavorite him.
+- Task completion rate: percentage of users successfully removing Luffy from Favorites.
+- Did the user hesitate during the process of unfavoriting?
+
+**Task 5: Guide for Beginners**
+
 Scenario: You’re a new user and want to find a guide that explains how to use the app.
 Goal: Locate and access the “Guide for Beginners”.
 Success Criteria: 
-Time on Task: time taken to locate the guide.
-Task completion rate: percentage of users successfully finding and opening the guide.
-Did the user find the guide easily confidentally?
+- Time on Task: time taken to locate the guide.
+- Task completion rate: percentage of users successfully finding and opening the guide.
+- Did the user find the guide easily confidentally?
 *This step is last to assess if users were able to complete the previous tasks without needing external help or guidance.
-Metrics and Observations:
-Task completion rate
-Time on task 
-User confidence
-User hesitation/frustration
 
+### Metrics and Observations:
+
+	•	Task completion rate
+	•	Time on task 
+	•	User confidence
+	•	User hesitation/frustration
 
 
