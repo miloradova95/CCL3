@@ -15,16 +15,23 @@ class CharacterViewModel : ViewModel() {
 
     private val repository = Repository()
     var state by mutableStateOf(ScreenState())
-    var id by mutableIntStateOf(0)
 
     init {
+        fetchCharactersList()
+    }
+
+    private fun fetchCharactersList() {
         viewModelScope.launch {
-            val response = repository.getCharactersList(state.page, 50)
-            if (response.isSuccessful) {
-                val characters = response.body()?.data?.Page?.characters ?: emptyList()
-                state = state.copy(
-                    characters = characters
-                )
+            try {
+                val response = repository.getCharactersList(state.page, 50)
+                if (response.isSuccessful) {
+                    val characters = response.body()?.data?.Page?.characters ?: emptyList()
+                    state = state.copy(characters = characters)
+                } else {
+                    // Handle API error (e.g., log or show an error message)
+                }
+            } catch (e: Exception) {
+                // Handle exceptions (e.g., network errors)
             }
         }
     }
@@ -45,12 +52,10 @@ class CharacterViewModel : ViewModel() {
             }
         }
     }
-
-
 }
 
 data class ScreenState(
     val characters: List<Data> = emptyList(),
     val page: Int = 10,
-    val detailsData: Data? = null
+    val detailsData: Data? = null // Nullable to avoid initialization issues
 )

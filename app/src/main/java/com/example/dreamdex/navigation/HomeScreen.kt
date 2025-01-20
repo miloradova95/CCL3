@@ -23,10 +23,14 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,10 +42,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.dreamdex.R
 import com.example.dreamdex.models.Data
@@ -51,41 +57,82 @@ import com.example.dreamdex.viewModel.CharacterViewModel
 fun HomeScreen(navController: NavHostController) {
     val characterViewModel = viewModel<CharacterViewModel>()
     val state = characterViewModel.state
+
+    // Fixing the state initialization
+    val searchQuery = remember { mutableStateOf("") }
+
+    // Filter characters based on the search query
+    val filteredCharacters = state.characters.filter {
+        it.name?.full?.contains(searchQuery.value, ignoreCase = true) == true
+    }
+
     Scaffold(
         modifier = Modifier.background(Color.Transparent),
         topBar = {
             TopBar()
         }, content = { paddingValues ->
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                Modifier
-                    .padding(paddingValues)
+
+            Column(
+                modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Transparent)
+                    .padding(paddingValues)
             ) {
-                if (state.characters.isNotEmpty()) {
-                    items(state.characters.size) {
-                        ItemUi(
-                            itemIndex = it,
-                            characterList = state.characters,
-                            navController = navController
-                        )
-                    }
-                } else {
-                    item {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text("No characters available")
+                // Pass the query and change handler to SearchBar
+                SearchBar(
+                    query = searchQuery.value,
+                    onSearchQueryChange = { searchQuery.value = it }  // Use .value to update state
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    Modifier
+                        .fillMaxSize()
+                        .background(Color.Transparent)
+                ) {
+                    if (filteredCharacters.isNotEmpty()) {
+                        items(filteredCharacters.size) {
+                            ItemUi(
+                                itemIndex = it,
+                                characterList = filteredCharacters,
+                                navController = navController
+                            )
+                        }
+                    } else {
+                        item {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text("No characters found")
+                            }
                         }
                     }
                 }
             }
 
-        },containerColor = Color.Transparent
+        },
+        containerColor = Color.Transparent
     )
+}
 
+@Composable
+fun SearchBar(
+    query: String,  // query is now passed from the parent composable
+    onSearchQueryChange: (String) -> Unit
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        TextField(
+            value = query,  // Use the query value passed from the parent
+            onValueChange = onSearchQueryChange,  // Pass the change handler
+            label = { Text("Search Characters") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            singleLine = true
+        )
+    }
 }
 
 @Composable
@@ -128,25 +175,16 @@ fun ItemUi(itemIndex: Int, characterList: List<Data>, navController: NavHostCont
                         )
                     )
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(Modifier.align(Alignment.End)) {
-                    Icon(imageVector = Icons.Rounded.Star, contentDescription = "")
-                    Text(
-                        text = characterList[itemIndex].rating ?: "N/A", // Updated to reflect the rating field
-                        textAlign = TextAlign.Start,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 8.dp),
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black,
-                        maxLines = 2
-                    )
-
-                }
-
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewHomeScreen() {
+    val navController = rememberNavController()
+    HomeScreen(navController = navController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
