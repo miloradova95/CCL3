@@ -24,5 +24,29 @@ Enthusiasts deeply invested in pop culture who want to maintain a curated collec
 Community and Social Sharers:
 Fans who enjoy sharing their character preferences with friends and engaging in discussions about their collections.
 
+----------------------------------------------------------------------------------------------------------------
+
+# Heuristic Evaluation
+**1. Visibility of System Status:**
+The bottom menu navigation includes icons that inform users about their current location within the app. When a user navigates to a page, the corresponding icon transitions from an outlined icon to a filled icon, providing clear visual feedback about the selected page. This design ensures users always know where they are in the app.
+
+Issue: No confirmation when favoriting/unfavoriting characters.
+Severity: 2 (minor usability problem)
+Reason: Users may feel uncertain if their input was registered, leading to confusion or repeated actions. The immediate feedback by the heart icon getting filled when a character is favorited might be too small to notice.
+
+Improvements: Confirm Favoriting Action
+Displaying a small and short confirmation message like "Added to Favorites" or “Removed from Favorites” when the user clicks the heart icon to favorite or unfavorite character. This feedback reinforces the action and assures users that their input was successful. 
+
+**2. Match Between System and the Real World:**
+We selected intuitive icons to align with users' real-world expectations. For example:
+- The house icon represents the home screen, a universally understood metaphor.
+- When a user clicks on a character's image, they are taken to a detailed view. Adjacent to the image, a heart icon allows users to favorite the character. The outlined heart becomes filled when tapped, providing immediate feedback that the character has been saved. 
+- To view their favorites, users can tap the heart icon located in the bottom navigation bar. Since this icon mirrors the one used for favoriting characters, users can easily make the connection. The use of a heart icon aligns with real-world associations, where hearts are intuitively connected to concepts of liking or saving cherished items.
+- The x icon in the top-left corner of the details page provides a simple, universally recognized way to close the page and return to the previous screen.
+- The globe icon represents the explore feature, which displays a list of characters. This icon aligns with its function, as it evokes the idea of discovery and exploration.
+
+Issue: no issue found 
+Severity: 0 (Not a usability problem)
+
 
 
