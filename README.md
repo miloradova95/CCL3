@@ -27,7 +27,8 @@ Fans who enjoy sharing their character preferences with friends and engaging in 
 ----------------------------------------------------------------------------------------------------------------
 
 # Heuristic Evaluation
-**1. Visibility of System Status:**
+
+### 1. Visibility of System Status:
 
 The bottom menu navigation includes icons that inform users about their current location within the app. When a user navigates to a page, the corresponding icon transitions from an outlined icon to a filled icon, providing clear visual feedback about the selected page. This design ensures users always know where they are in the app.
 
@@ -38,7 +39,7 @@ Reason: Users may feel uncertain if their input was registered, leading to confu
 Improvements: Confirm Favoriting Action
 Displaying a small and short confirmation message like "Added to Favorites" or “Removed from Favorites” when the user clicks the heart icon to favorite or unfavorite character. This feedback reinforces the action and assures users that their input was successful. 
 
-**2. Match Between System and the Real World:**
+### 2. Match Between System and the Real World:
 
 We selected intuitive icons to align with users' real-world expectations. For example:
 - The house icon represents the home screen, a universally understood metaphor.
@@ -50,7 +51,7 @@ We selected intuitive icons to align with users' real-world expectations. For ex
 Issue: no issue found 
 Severity: 0 (Not a usability problem)
 
-**3. User Control and Freedom:**
+### 3. User Control and Freedom:
 
 The app ensures user control by providing clear exit options. For example, the x icon in the top-left corner of a character's details page allows users to exit the page effortlessly. Similarly, users can quickly unfavorite a character by simply clicking the filled heart icon, which returns the heart outline, making it as easy to remove favorites as it is to add them.
 
@@ -61,7 +62,7 @@ Reason: Users need the option to exit an action. Without applying options, the p
 Improvements: Exit the Filter
 Currently, there is no way to cancel or exit the filter once opened. Adding a clear exit option by adding an x icon at the top left of the filter pop would enhance user freedom, by allowing them to back out easily. Since the x icon is already used to exit the character detail page, incorporating it here would also reinforce consistency in the app's design and functionality. 
 
-**4. Consistency and Standards:**
+### 4. Consistency and Standards:
 
 The interface maintains consistency across the app to support intuitive navigation. For instance, the heart icon next to a character image mirrors the heart icon in the navigation bar, reinforcing the connection between the two and the user's “Favorites.”
 On the character list page, the search and filter options are prominently displayed at the top, making them easily discoverable. Additionally, navigation remains consistently placed at the bottom of all pages, ensuring users always know where to find it.
@@ -73,7 +74,7 @@ Reason: While inconvenient for users with long favorites lists, it doesn’t blo
 Improvements: Search in Favorites
 Adding a search function to the Favorites page would make it easier for users to locate a specific character, especially when the list of characters grows.
 
-**5. Error Prevention:**
+### 5. Error Prevention:
 
 The app aims to minimize errors by guiding users. For example, a submit button in the filter dialog can be designed to remain inactive until at least one filter option is selected.
 
@@ -82,11 +83,11 @@ Severity: 3 (Major usability problem)
 Reason: Users may unknowingly press the Submit button without selecting options, leading to confusion or errors.
 
 Improvements: Submit & Clear Button
-Adding a Submit button at the bottom of the filter popup, ensuring it can only be pressed after at least one filter option is selected.
-Including a Clear button to allow users to reset all selected filters easily.
-Adjusting the age filter so that users can leave it blank if they don’t want to filter by age.
+- Adding a Submit button at the bottom of the filter pop-up, ensuring it can only be pressed after at least one filter option is selected.
+- Including a Clear button to allow users to reset all selected filters easily.
+- Adjusting the age filter so that users can leave it blank if they don’t want to filter by age.
 
-**6. Recognition Rather Than Recall:**
+### 6. Recognition Rather Than Recall:
 
 The navigation icons menu is consistently visible at the bottom of the page, ensuring users can easily access key features without needing to remember their location. Additionally, the heart icons on character images clearly indicate whether a character has been favorited, eliminating the need for users to click on the character image to see if they hearted them on the details page or navigate to the favorites page to confirm their selection.
 
@@ -98,14 +99,14 @@ image and find the information on the details page, so it is not critical.
 Improvements: Adding Anime Name to Character Image
 Displaying the character’s name alongside the anime title directly on the bottom of the image would provide additional context. This enhancement would help users easily identify and associate characters with their origins, reducing cognitive effort and improving the overall experience.
 
-**7. Flexibility and Efiiciency of Use:**
+### 7. Flexibility and Efiiciency of Use:
 
 The app supports user flexibility by providing multiple ways to perform key actions, accommodating different user preferences. For example, users can navigate back to the homepage either by clicking the home icon in the navigation bar or by tapping the DreamDex logo at the top of the page. Additionally, favoriting a character can be done directly by clicking the heart icon on the character image, or by accessing the character’s details page to learn more before favoriting them. This dual approach ensures both quick actions and informed decisions. 
 
 Issue: no issue found 
 Severity: 0 (Not a usability problem)
 
-**8. Aesthetic and Minimalistic Design:**
+### 8. Aesthetic and Minimalistic Design:
 
 The app follows a clean and minimalist design. The navigation bar includes only the most critical actions, and the overall interface is uncluttered. Characters are displayed symmetrically, creating a visually pleasing layout, while the consistent use of navy blue accents enhances cohesion.
 
@@ -116,7 +117,7 @@ Reason: Users may struggle to recognize the status of the heart icon if its colo
 Improvements: Clear icon colors 
 Active and inactive heart icon color will be red on character images to stand out; navy blue is not visible against the character pictures.
 
-**9. Help Users Recognize, Diagnose, and Recover from Errors:**
+### 9. Help Users Recognize, Diagnose, and Recover from Errors:
 
 If a character search yields no results, the app will display a message like “Oops we couldn’t find the character”.
 
@@ -127,7 +128,7 @@ Reason: Users might be confused without proper feedback, leading to frustration 
 Improvements: Error Messages in Filter 
 If users press Submit without selecting any filter options, a message like, “Select at least one filter option, or tap Cancel to exit” will be displayed. 
 
-**10. Help and Documentation:**
+### 10. Help and Documentation:
 
 The app's design is intuitive, so users may not immediately require help. However, a small, helpful guide for new users could make the experience even more welcoming.
 
@@ -138,7 +139,7 @@ Reason: While helpful, it’s not essential for most users, as the app is design
 Improvements: Guides for New Users
 Visibly adding a guide box at the bottom of the homepage, below the “Character of the Day.” When clicked, it could navigate users to a page with visual guides and step-by-step instructions for the app’s primary features.
 
-**Severity Ratings:**
+### Severity Ratings:
 
 	•	0 - Not a usability problem
 	•	1 - Cosmetic problem only
@@ -162,17 +163,17 @@ DV: Users’ ability to orient themselves and complete tasks efficiently.
 
 ## Data to Collect:
 
-**Task-based Usability Testing:**
+### Task-based Usability Testing:
 
-<u>Task 1: Filtering</u>
-
+**Task 1: Filtering**
 Scenario: You want to find characters aged 30 by using the filter option.
 Goal: Apply the filter to display only characters aged 30.
 Success Criteria: 
-Time on Task: time taken to locate and set filter.
-Task completion rate: percentage of users successfully applying the correct age filter.
-Could the user complete this confidently?
-Task 2: Details Page
+- Time on Task: time taken to locate and set filter.
+- Task completion rate: percentage of users successfully applying the correct age filter.
+- Could the user complete this confidently?
+
+**Task 2: Details Page**
 Scenario: You want to learn more about today’s featured character.
 Goal: Navigate to the details page of the "Character of the Day."
 Success Criteria: 
