@@ -73,5 +73,33 @@ Reason: While inconvenient for users with long favorites lists, it doesn’t blo
 Improvements: Search in Favorites
 Adding a search function to the Favorites page would make it easier for users to locate a specific character, especially when the list of characters grows.
 
+**# 5. Error Prevention:**
+
+The app aims to minimize errors by guiding users. For example, a submit button in the filter dialog can be designed to remain inactive until at least one filter option is selected.
+
+Issue: No clear feedback in the filter dialog when no options are selected.
+Severity: 3 (Major usability problem)
+Reason: Users may unknowingly press the Submit button without selecting options, leading to confusion or errors.
+
+Improvements: Submit & Clear Button
+Adding a Submit button at the bottom of the filter popup, ensuring it can only be pressed after at least one filter option is selected.
+Including a Clear button to allow users to reset all selected filters easily.
+Adjusting the age filter so that users can leave it blank if they don’t want to filter by age.
+
+**6. Recognition Rather Than Recall:**
+
+The navigation icons menu is consistently visible at the bottom of the page, ensuring users can easily access key features without needing to remember their location. Additionally, the heart icons on character images clearly indicate whether a character has been favorited, eliminating the need for users to click on the character image to see if they hearted them on the details page or navigate to the favorites page to confirm their selection.
+
+Issue: Character images lack the anime name for context.
+Severity: 2 (Minor usability problem)
+Reason: While it would improve usability, users can still recognize characters by their
+image and find the information on the details page, so it is not critical.
+
+Improvements: Adding Anime Name to Character Image
+Displaying the character’s name alongside the anime title directly on the bottom of the image would provide additional context. This enhancement would help users easily identify and associate characters with their origins, reducing cognitive effort and improving the overall experience.
+
+
+
+
 
 
