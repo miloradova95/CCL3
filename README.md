@@ -116,7 +116,27 @@ Reason: Users may struggle to recognize the status of the heart icon if its colo
 Improvements: Clear icon colors 
 Active and inactive heart icon color will be red on character images to stand out; navy blue is not visible against the character pictures.
 
+**9. Help Users Recognize, Diagnose, and Recover from Errors:**
 
+If a character search yields no results, the app will display a message like “Oops we couldn’t find the character”.
+
+Issue: No clear error message if no filter option is selected.
+Severity: 3 (Major usability problem)
+Reason: Users might be confused without proper feedback, leading to frustration or misinterpretation of the app’s behavior.
+
+Improvements: Error Messages in Filter 
+If users press Submit without selecting any filter options, a message like, “Select at least one filter option, or tap Cancel to exit” will be displayed. 
+
+**10. Help and Documentation:**
+
+The app's design is intuitive, so users may not immediately require help. However, a small, helpful guide for new users could make the experience even more welcoming.
+
+Issue: No guide for new users.
+Severity: 1 (Cosmetic problem)
+Reason: While helpful, it’s not essential for most users, as the app is designed to be intuitive.
+
+Improvements: Guides for New Users
+Visibly adding a guide box at the bottom of the homepage, below the “Character of the Day.” When clicked, it could navigate users to a page with visual guides and step-by-step instructions for the app’s primary features.
 
 
 
