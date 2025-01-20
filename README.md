@@ -73,7 +73,7 @@ Reason: While inconvenient for users with long favorites lists, it doesn’t blo
 Improvements: Search in Favorites
 Adding a search function to the Favorites page would make it easier for users to locate a specific character, especially when the list of characters grows.
 
-**# 5. Error Prevention:**
+**5. Error Prevention:**
 
 The app aims to minimize errors by guiding users. For example, a submit button in the filter dialog can be designed to remain inactive until at least one filter option is selected.
 
@@ -150,17 +150,60 @@ Visibly adding a guide box at the bottom of the homepage, below the “Character
 
 # Userbility Test Plan:
 
-**Hypothesis:**
+<font size="3">**Hypothesis:**</font>
 
 Consistent navigation placement, intuitive icons, and clear feedback mechanisms will positively impact users' ability to orient themselves within the app and complete tasks efficiently.
 
-**Experimental Research Question:**
+<font size="3">**Experimental Research Question:**</font>
 
 How do consistent navigation elements and intuitive design features affect users’ ability to orient themselves and complete tasks efficiently within the app?
 IV: Consistent navigation elements and intuitive design features.
 DV: Users’ ability to orient themselves and complete tasks efficiently.
 
+<font size="3">**Data to Collect:**</font>
 
+**Task-based Usability Testing:**
+<u>Task 1: Filtering</u>
+Scenario: You want to find characters aged 30 by using the filter option.
+Goal: Apply the filter to display only characters aged 30.
+Success Criteria: 
+Time on Task: time taken to locate and set filter.
+Task completion rate: percentage of users successfully applying the correct age filter.
+Could the user complete this confidently?
+Task 2: Details Page
+Scenario: You want to learn more about today’s featured character.
+Goal: Navigate to the details page of the "Character of the Day."
+Success Criteria: 
+Time on Task: time taken to locate and open the details page.
+Task completion rate: percentage of users successfully accessing the correct details page.
+Instances of pauses or confusion during navigation.
+Task 3: Search and Favorite
+Scenario: You search for “Luffy” and add him to your favorites.
+Goal: Add Luffy to your Favorites and confirm that he appears in the Favorites section.
+Success Criteria: 
+Time on Task: time taken to locate Luffy, favorite him, and verify in Favorites.
+Task completion rate: percentage of users successfully finding and adding Luffy to Favorites and confirming the action.
+Were users confident in searching and favoriting characters?
+Task 4: Unfavoriting a Character
+Scenario: You decide to remove “Luffy” from your Favorites.
+Goal: Locate Luffy in the Favorites section and unfavorite him.
+Success Criteria: 
+Time on Task: time taken to locate Luffy in Favorites and unfavorite him..
+Task completion rate: percentage of users successfully removing Luffy from Favorites.
+Did the user hesitate during the process of unfavoriting?
+Task 5: Guide for Beginners
+Scenario: You’re a new user and want to find a guide that explains how to use the app.
+Goal: Locate and access the “Guide for Beginners”.
+Success Criteria: 
+Time on Task: time taken to locate the guide.
+Task completion rate: percentage of users successfully finding and opening the guide.
+Did the user find the guide easily confidentally?
+*This step is last to assess if users were able to complete the previous tasks without needing external help or guidance.
+Metrics and Observations:
+Task completion rate
+Time on task 
+User confidence
+User hesitation/frustration
 
 
 
