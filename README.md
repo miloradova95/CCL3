@@ -98,6 +98,24 @@ image and find the information on the details page, so it is not critical.
 Improvements: Adding Anime Name to Character Image
 Displaying the character’s name alongside the anime title directly on the bottom of the image would provide additional context. This enhancement would help users easily identify and associate characters with their origins, reducing cognitive effort and improving the overall experience.
 
+**7. Flexibility and Efiiciency of Use:**
+
+The app supports user flexibility by providing multiple ways to perform key actions, accommodating different user preferences. For example, users can navigate back to the homepage either by clicking the home icon in the navigation bar or by tapping the DreamDex logo at the top of the page. Additionally, favoriting a character can be done directly by clicking the heart icon on the character image, or by accessing the character’s details page to learn more before favoriting them. This dual approach ensures both quick actions and informed decisions. 
+
+Issue: no issue found 
+Severity: 0 (Not a usability problem)
+
+**8. Aesthetic and Minimalistic Design:**
+
+The app follows a clean and minimalist design. The navigation bar includes only the most critical actions, and the overall interface is uncluttered. Characters are displayed symmetrically, creating a visually pleasing layout, while the consistent use of navy blue accents enhances cohesion.
+
+Issue: unclear icon colors (active and inactive heart icon blend with background).
+Severity: 3 (Major usability problem)
+Reason: Users may struggle to recognize the status of the heart icon if its color blends with the background, impacting visibility and usability.
+
+Improvements: Clear icon colors 
+Active and inactive heart icon color will be red on character images to stand out; navy blue is not visible against the character pictures.
+
 
 
 
