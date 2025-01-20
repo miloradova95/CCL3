@@ -28,6 +28,7 @@ Fans who enjoy sharing their character preferences with friends and engaging in 
 
 # Heuristic Evaluation
 **1. Visibility of System Status:**
+
 The bottom menu navigation includes icons that inform users about their current location within the app. When a user navigates to a page, the corresponding icon transitions from an outlined icon to a filled icon, providing clear visual feedback about the selected page. This design ensures users always know where they are in the app.
 
 Issue: No confirmation when favoriting/unfavoriting characters.
@@ -38,6 +39,7 @@ Improvements: Confirm Favoriting Action
 Displaying a small and short confirmation message like "Added to Favorites" or “Removed from Favorites” when the user clicks the heart icon to favorite or unfavorite character. This feedback reinforces the action and assures users that their input was successful. 
 
 **2. Match Between System and the Real World:**
+
 We selected intuitive icons to align with users' real-world expectations. For example:
 - The house icon represents the home screen, a universally understood metaphor.
 - When a user clicks on a character's image, they are taken to a detailed view. Adjacent to the image, a heart icon allows users to favorite the character. The outlined heart becomes filled when tapped, providing immediate feedback that the character has been saved. 
@@ -47,6 +49,29 @@ We selected intuitive icons to align with users' real-world expectations. For ex
 
 Issue: no issue found 
 Severity: 0 (Not a usability problem)
+
+**3. User Control and Freedom:**
+
+The app ensures user control by providing clear exit options. For example, the x icon in the top-left corner of a character's details page allows users to exit the page effortlessly. Similarly, users can quickly unfavorite a character by simply clicking the filled heart icon, which returns the heart outline, making it as easy to remove favorites as it is to add them.
+
+Issue: No clear exit option for the filter.
+Severity: 4 (Usability catastrophe)
+Reason: Users need the option to exit an action. Without applying options, the principle of freedom is violated to back out.
+
+Improvements: Exit the Filter
+Currently, there is no way to cancel or exit the filter once opened. Adding a clear exit option by adding an x icon at the top left of the filter pop would enhance user freedom, by allowing them to back out easily. Since the x icon is already used to exit the character detail page, incorporating it here would also reinforce consistency in the app's design and functionality. 
+
+**4. Consistency and Standards:**
+
+The interface maintains consistency across the app to support intuitive navigation. For instance, the heart icon next to a character image mirrors the heart icon in the navigation bar, reinforcing the connection between the two and the user's “Favorites.”
+On the character list page, the search and filter options are prominently displayed at the top, making them easily discoverable. Additionally, navigation remains consistently placed at the bottom of all pages, ensuring users always know where to find it.
+
+Issue: No search function in Favorites.
+Severity: 2 (Minor usability problem).
+Reason: While inconvenient for users with long favorites lists, it doesn’t block core functionality but does reduce efficiency.
+
+Improvements: Search in Favorites
+Adding a search function to the Favorites page would make it easier for users to locate a specific character, especially when the list of characters grows.
 
 
 
