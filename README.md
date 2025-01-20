@@ -150,20 +150,22 @@ Visibly adding a guide box at the bottom of the homepage, below the “Character
 
 # Userbility Test Plan:
 
-<font size="3">**Hypothesis:**</font>
+## Hypothesis:
 
 Consistent navigation placement, intuitive icons, and clear feedback mechanisms will positively impact users' ability to orient themselves within the app and complete tasks efficiently.
 
-<font size="3">**Experimental Research Question:**</font>
+## Experimental Research Question:
 
 How do consistent navigation elements and intuitive design features affect users’ ability to orient themselves and complete tasks efficiently within the app?
 IV: Consistent navigation elements and intuitive design features.
 DV: Users’ ability to orient themselves and complete tasks efficiently.
 
-<font size="3">**Data to Collect:**</font>
+## Data to Collect:
 
 **Task-based Usability Testing:**
+
 <u>Task 1: Filtering</u>
+
 Scenario: You want to find characters aged 30 by using the filter option.
 Goal: Apply the filter to display only characters aged 30.
 Success Criteria: 
