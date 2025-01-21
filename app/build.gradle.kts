@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -67,18 +68,20 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
-    // retrofit
+    // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    //coil
-    implementation ("io.coil-kt:coil-compose:2.4.0")
-    implementation ("com.google.accompanist:accompanist-coil:0.10.0")
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("com.google.accompanist:accompanist-coil:0.10.0")
 
-    // viewModel
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 
-    //navigation
+    // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    // Material Components for BottomNavigationView
+    implementation("com.google.android.material:material:1.9.0") // Latest version
 }

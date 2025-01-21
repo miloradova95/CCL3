@@ -63,7 +63,7 @@ fun BannerScreen(navController: NavHostController) {
                     textAlign = TextAlign.Center
                 )
             )
-            Button(onClick = { navController.navigate("Home Screen")}
+            Button(onClick = { navController.navigate("Browse Screen")}
                 ,modifier.padding(bottom = 55.dp, start = 20.dp, end = 20.dp)
                     .fillMaxWidth()
                     .background(color = Color.Gray.copy(0.8f), RoundedCornerShape(16.dp)),
