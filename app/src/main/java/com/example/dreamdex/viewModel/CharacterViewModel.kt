@@ -1,55 +1,61 @@
 package com.example.dreamdex.viewModel
 
-import android.telecom.Call.Details
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
+import android.content.Context
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dreamdex.models.CharactersList
+import com.example.dreamdex.models.CharacterEntity
 import com.example.dreamdex.models.Data
 import kotlinx.coroutines.launch
 
-class CharacterViewModel : ViewModel() {
+class CharacterViewModel(private val context: Context) : ViewModel() {
 
-    private val repository = Repository()
+    private val dreamDexRepository = DreamDexRepository(context)
     var state by mutableStateOf(ScreenState())
 
     init {
         fetchCharactersList()
+        getDreamDexFavorites() // Load favorites on ViewModel initialization
     }
 
     private fun fetchCharactersList() {
         viewModelScope.launch {
             try {
-                val response = repository.getCharactersList(state.page, 50)
+                val response = Repository().getCharactersList(state.page, 50)
                 if (response.isSuccessful) {
                     val characters = response.body()?.data?.Page?.characters ?: emptyList()
                     state = state.copy(characters = characters)
-                } else {
-                    // Handle API error (e.g., log or show an error message)
                 }
             } catch (e: Exception) {
-                // Handle exceptions (e.g., network errors)
+                // Handle network exceptions
             }
         }
     }
 
-    fun getCharacterDetails(id: Int) {
+    fun addCharacterToDreamDex(character: Data) {
         viewModelScope.launch {
-            try {
-                val response = repository.getCharacterDetails(id)
-                if (response.isSuccessful) {
-                    response.body()?.let { characterDetails ->
-                        state = state.copy(detailsData = characterDetails)
-                    }
-                } else {
-                    // Handle API error (e.g., log it or show an error message)
-                }
-            } catch (e: Exception) {
-                // Handle exceptions (e.g., network errors)
-            }
+            val characterEntity = CharacterEntity(
+                id = character.id,
+                name = character.name.full,
+                imageUrl = character.image.large,
+                description = character.description ?: ""
+            )
+            dreamDexRepository.addCharacterToDreamDex(characterEntity)
+        }
+    }
+
+    fun removeCharacterFromDreamDex(characterId: Int) {
+        viewModelScope.launch {
+            dreamDexRepository.removeCharacterFromDreamDex(characterId)
+        }
+    }
+
+    private fun getDreamDexFavorites() {
+        viewModelScope.launch {
+            val favorites = dreamDexRepository.getAllFavorites()
+            state = state.copy(favorites = favorites)
         }
     }
 }
@@ -57,5 +63,5 @@ class CharacterViewModel : ViewModel() {
 data class ScreenState(
     val characters: List<Data> = emptyList(),
     val page: Int = 10,
-    val detailsData: Data? = null // Nullable to avoid initialization issues
+    val favorites: List<CharacterEntity> = emptyList()  // Add this to store favorites
 )
