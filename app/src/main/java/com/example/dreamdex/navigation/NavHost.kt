@@ -35,6 +35,14 @@ fun Navigation() {
 
         }
 
+        composable("CharacterOfTheDayScreen") {
+            CharacterOfTheDayScreen(navController = navController)
+        }
+
+        composable("Favorites Screen") {
+            FavoritesScreen(navController = navController)
+        }
+
     }
 }
 
