@@ -4,27 +4,37 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,11 +56,16 @@ import coil.compose.AsyncImage
 import com.example.dreamdex.R
 import com.example.dreamdex.models.Data
 import com.example.dreamdex.viewModel.CharacterViewModel
+import com.example.dreamdex.db.CharactersViewModel
+import com.example.dreamdex.db.FavoriteCharacter
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
     val characterViewModel = viewModel<CharacterViewModel>()
+    val charactersViewModel = viewModel<CharactersViewModel>()
+
     val state = characterViewModel.state
+    val favoriteCharacters = charactersViewModel.favorites.collectAsState(initial = emptyList()).value
 
     // Fixing the state initialization
     val searchQuery = remember { mutableStateOf("") }
@@ -67,6 +82,7 @@ fun HomeScreen(navController: NavHostController) {
         },
         bottomBar = { BottomNavigationBar(navController) },
         content = { paddingValues ->
+            FavoritesScreen(navController = navController, viewModel = charactersViewModel)
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -91,7 +107,8 @@ fun HomeScreen(navController: NavHostController) {
                             ItemUi(
                                 itemIndex = it,
                                 characterList = filteredCharacters,
-                                navController = navController
+                                navController = navController,
+                                viewModel = charactersViewModel
                             )
                         }
                     } else {
@@ -130,7 +147,7 @@ fun SearchBar(
     }
 }
 
-@Composable
+/*@Composable
 fun ItemUi(itemIndex: Int, characterList: List<Data>, navController: NavHostController) {
     Card(
         Modifier
@@ -170,6 +187,76 @@ fun ItemUi(itemIndex: Int, characterList: List<Data>, navController: NavHostCont
                         )
                     )
                 )
+            }
+        }
+    }
+}*/
+
+@Composable
+fun ItemUi(
+    itemIndex: Int,
+    characterList: List<Data>,
+    navController: NavHostController,
+    viewModel: CharactersViewModel
+) {
+    val character = characterList[itemIndex]
+    var isFavorite by remember { mutableStateOf(false) }
+
+    // Query favorite status
+        // Ensure the callback is updating the state correctly
+        viewModel.isFavorite(character.id) { isFav ->
+            isFavorite = isFav // Update the isFavorite state
+        }
+
+    Card(
+        Modifier
+            .wrapContentSize()
+            .padding(10.dp)
+            .clickable { navController.navigate("Details screen/${character.id}") },
+        elevation = CardDefaults.cardElevation(8.dp)
+    ) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
+            AsyncImage(
+                model = character.image.large ?: R.drawable.placeholder_image,
+                contentDescription = character.name.full ?: "Character",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(10.dp)),
+                contentScale = ContentScale.Crop
+            )
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .background(Color.LightGray.copy(.7f))
+                    .padding(6.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = character.name.full ?: "Unknown",
+                        modifier = Modifier.weight(1f),
+                        textAlign = TextAlign.Start,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Icon(
+                        imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                        contentDescription = "Favorite",
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clickable {
+                                if (isFavorite) {
+                                    viewModel.removeFavorite(FavoriteCharacter(character.id, character.name.full, character.image.large))
+                                } else {
+                                    viewModel.addFavorite(FavoriteCharacter(character.id, character.name.full, character.image.large))
+                                }
+                            },
+                        tint = Color.Red
+                    )
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.dreamdex.viewModel
 
 import android.telecom.Call.Details
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +25,7 @@ class CharacterViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = repository.getCharactersList(state.page, 50)
+                Log.e("hello", response.toString())
                 if (response.isSuccessful) {
                     val characters = response.body()?.data?.Page?.characters ?: emptyList()
                     state = state.copy(characters = characters)
@@ -31,6 +33,7 @@ class CharacterViewModel : ViewModel() {
                     // Handle API error (e.g., log or show an error message)
                 }
             } catch (e: Exception) {
+                Log.e("Error fetching CharactersList", e.toString())
                 // Handle exceptions (e.g., network errors)
             }
         }
