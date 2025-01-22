@@ -191,14 +191,7 @@ fun TopBar(title: String) {
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "Characters",
-                    style = TextStyle(
-                        fontFamily = FontFamily.Serif, // Replace with your custom FontFamily
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
-                    )
-                )
+
             }
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

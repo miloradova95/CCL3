@@ -6,11 +6,7 @@ data class Data(
     val image: Image,
     val description: String?,
     val rating: String? = null,
-    val media: MediaConnection,
-    val gender: String?,
-    val dateOfBirth: String?,
-    val age: String?,
-    val bloodType: String?
+    val media: MediaConnection
 )
 
 data class Name(

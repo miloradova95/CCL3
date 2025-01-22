@@ -2,7 +2,9 @@ package com.example.dreamdex.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,11 +39,13 @@ fun DetailsScreen(
             )
         }
     } else {
-        // Display character details
+        // Display character details in a scrollable column
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Name of the character
             Text(
@@ -50,7 +54,9 @@ fun DetailsScreen(
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(top = 24.dp)
                     .padding(bottom = 16.dp)
+
             )
 
             // Image of the character
@@ -58,50 +64,17 @@ fun DetailsScreen(
                 model = character.image.large,
                 contentDescription = character.name.full,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .width(200.dp)
                     .height(300.dp)
                     .padding(bottom = 16.dp),
                 contentScale = ContentScale.Crop
             )
-
-            // Display character attributes first
-            Column(modifier = Modifier.padding(bottom = 16.dp)) {
-                character.gender?.let {
-                    Text(
-                        text = "Gender: $it",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
-                }
-                character.age?.let {
-                    Text(
-                        text = "Age: $it",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
-                }
-                character.dateOfBirth?.let {
-                    Text(
-                        text = "Date of Birth: $it",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
-                }
-                character.bloodType?.let {
-                    Text(
-                        text = "Blood Type: $it",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
-                }
-            }
 
             // Description (at the end)
             character.description?.let {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
                         .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(8.dp))
                         .padding(16.dp)
                 ) {

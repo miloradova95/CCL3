@@ -56,6 +56,6 @@ class CharacterViewModel : ViewModel() {
 
 data class ScreenState(
     val characters: List<Data> = emptyList(),
-    val page: Int = 10,
+    val page: Int = 2,
     val detailsData: Data? = null // Nullable to avoid initialization issues
 )
