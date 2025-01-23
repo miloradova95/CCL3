@@ -6,7 +6,7 @@ data class Data(
     val image: Image,
     val description: String?,
     val rating: String? = null,
-    val media: MediaConnection
+    val media: MediaConnection,
 )
 
 data class Name(

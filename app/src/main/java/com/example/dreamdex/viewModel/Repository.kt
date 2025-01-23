@@ -25,6 +25,17 @@ class Repository {
                             large
                         }
                         description
+                        media {
+                            nodes {
+                                id
+                                title {
+                                    romaji
+                                    english
+                                    native
+                                }
+                                type
+                            }
+                        }
                     }
                     pageInfo {
                         currentPage

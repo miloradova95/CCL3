@@ -29,6 +29,7 @@ class CharacterViewModel : ViewModel() {
                 Log.e("hello", response.toString())
                 if (response.isSuccessful) {
                     val characters = response.body()?.data?.Page?.characters ?: emptyList()
+                    Log.e("hello", characters.toString())
                     state = state.copy(characters = characters)
                 } else {
                     // Handle API error (e.g., log or show an error message)

@@ -257,7 +257,8 @@ fun ItemUi(
                                             character.id,
                                             character.name.full,
                                             character.image.large,
-                                            character.description
+                                            character.description,
+                                            character.media.nodes[0].title.english ?: character.media.nodes[0].title.romaji,
                                         )
                                     )
                                 } else {
@@ -266,7 +267,8 @@ fun ItemUi(
                                             character.id,
                                             character.name.full,
                                             character.image.large,
-                                            character.description
+                                            character.description,
+                                            character.media.nodes[0].title.english ?: character.media.nodes[0].title.romaji,
                                         )
                                     )
                                 }

@@ -42,7 +42,8 @@ fun DetailsScreen(
                         characterData.id,
                         characterData.name.full,
                         characterData.image.large,
-                        characterData.description
+                        characterData.description,
+                        characterData.media.nodes[0].title.english ?: characterData.media.nodes[0].title.romaji,
                     )
                 }
             }
@@ -97,6 +98,20 @@ fun DetailsScreen(
             )
 
             // Description (at the end)
+            character.value!!.title.let {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(8.dp))
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Justify
+                    )
+                }
+            }
             character.value!!.description?.let {
                 Box(
                     modifier = Modifier
