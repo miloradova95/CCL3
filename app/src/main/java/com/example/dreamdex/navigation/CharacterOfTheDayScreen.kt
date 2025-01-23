@@ -2,7 +2,6 @@ package com.example.dreamdex.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -15,8 +14,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,26 +37,26 @@ import coil.compose.AsyncImage
 import com.example.dreamdex.R
 import com.example.dreamdex.models.Data
 import com.example.dreamdex.viewModel.CharacterViewModel
-import kotlin.random.Random
+
 
 @Composable
 fun CharacterOfTheDayScreen(navController: NavHostController) {
     val characterViewModel = viewModel<CharacterViewModel>()
     val state = characterViewModel.state
 
-    // Select a random character
     val randomCharacter = if (state.characters.isNotEmpty()) {
         state.characters.random()
     } else {
-        null // Handle when no characters are available
+        null
     }
+
 
     Scaffold(
         topBar = {
-            TopBar(title = "Character of the Day") // The top bar remains unchanged
+            TopBar(title = "Character of the Day")
         },
-        bottomBar = { BottomNavigationBar(navController) }, // The bottom navigation bar remains unchanged
-        containerColor = Color.Transparent, // Make the scaffold container transparent
+        bottomBar = { BottomNavigationBar(navController) },
+        containerColor = Color.Transparent,
         content = { paddingValues ->
             Column(
                 modifier = Modifier
@@ -78,17 +79,15 @@ fun CharacterOfTheDayScreen(navController: NavHostController) {
                     modifier = Modifier.padding(16.dp)
                 )
 
-                // Content
                 if (randomCharacter != null) {
                     Card(
                         modifier = Modifier
                             .padding(16.dp)
                             .clickable {
-                                // Navigate to the DetailsScreen with the selected character's ID
                                 navController.navigate("Details screen/${randomCharacter.id}")
                             },
                         shape = RoundedCornerShape(12.dp),
-                        elevation = CardDefaults.cardElevation(8.dp), // Card elevation remains the same
+                        elevation = CardDefaults.cardElevation(8.dp),
                     ) {
                         Column(
                             modifier = Modifier
@@ -118,7 +117,6 @@ fun CharacterOfTheDayScreen(navController: NavHostController) {
                         }
                     }
                 } else {
-                    // Show a fallback message if no characters are available
                     Text(
                         text = "No characters available for the day!",
                         fontSize = 18.sp,
@@ -129,8 +127,6 @@ fun CharacterOfTheDayScreen(navController: NavHostController) {
         }
     )
 }
-
-
 
 @Preview(showBackground = true)
 @Composable

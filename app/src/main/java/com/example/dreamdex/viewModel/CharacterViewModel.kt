@@ -17,6 +17,7 @@ class CharacterViewModel : ViewModel() {
     private val repository = Repository()
     var state by mutableStateOf(ScreenState())
 
+
     init {
         fetchCharactersList()
     }
@@ -39,26 +40,31 @@ class CharacterViewModel : ViewModel() {
         }
     }
 
-    fun getCharacterDetails(id: Int) {
-        viewModelScope.launch {
+    suspend fun getCharacterDetails(id: Int): Data?  {
             try {
                 val response = repository.getCharacterDetails(id)
                 if (response.isSuccessful) {
                     response.body()?.let { characterDetails ->
-                        state = state.copy(detailsData = characterDetails)
+                        return characterDetails
                     }
                 } else {
-                    // Handle API error (e.g., log it or show an error message)
+                    return null
                 }
             } catch (e: Exception) {
-                // Handle exceptions (e.g., network errors)
+                Log.e("Error fetching CharactersDetails", e.toString())
+                return null
             }
-        }
+        return null
+    }
+
+    fun loadMoreCharacters() {
+        state = state.copy(page = state.page + 1)
+        fetchCharactersList()
     }
 }
 
 data class ScreenState(
     val characters: List<Data> = emptyList(),
-    val page: Int = 2,
+    val page: Int = 1,
     val detailsData: Data? = null // Nullable to avoid initialization issues
 )

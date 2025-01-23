@@ -1,8 +1,10 @@
 package com.example.dreamdex.navigation
 
 
+import androidx.compose.animation.core.copy
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -56,50 +59,49 @@ import com.example.dreamdex.db.FavoriteCharacter
 
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(navController: NavHostController, charactersViewModel: CharactersViewModel) {
     val characterViewModel = viewModel<CharacterViewModel>()
-    val charactersViewModel = viewModel<CharactersViewModel>()
+
 
     val state = characterViewModel.state
     val favoriteCharacters = charactersViewModel.favorites.collectAsState(initial = emptyList()).value
 
-    // Fixing the state initialization
     val searchQuery = remember { mutableStateOf("") }
 
-    // Filter characters based on the search query
     val filteredCharacters = state.characters.filter {
         it.name?.full?.contains(searchQuery.value, ignoreCase = true) == true
     }
 
-
     Scaffold(
         modifier = Modifier,
-        topBar = {
-            TopBar("Characters")
-        },
+        topBar = { TopBar("Characters") },
         bottomBar = { BottomNavigationBar(navController) },
         content = { paddingValues ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Transparent) // Set transparent background
-            )
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
             ) {
-                // Pass the query and change handler to SearchBar
                 SearchBar(
                     query = searchQuery.value,
-                    onSearchQueryChange = { searchQuery.value = it }  // Use .value to update state
+                    onSearchQueryChange = { searchQuery.value = it }
                 )
+
+                // "More Characters" button beneath the search bar
+                Button(
+                    onClick = { characterViewModel.loadMoreCharacters() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Text("More Characters")
+                }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
-                    Modifier
+                    modifier = Modifier
                         .fillMaxSize()
                         .background(Color.Transparent)
                 ) {
@@ -124,12 +126,10 @@ fun HomeScreen(navController: NavHostController) {
                     }
                 }
             }
-
         },
         containerColor = Color.Transparent
     )
 }
-
 
 
 @Composable
@@ -256,7 +256,8 @@ fun ItemUi(
                                         FavoriteCharacter(
                                             character.id,
                                             character.name.full,
-                                            character.image.large
+                                            character.image.large,
+                                            character.description
                                         )
                                     )
                                 } else {
@@ -264,7 +265,8 @@ fun ItemUi(
                                         FavoriteCharacter(
                                             character.id,
                                             character.name.full,
-                                            character.image.large
+                                            character.image.large,
+                                            character.description
                                         )
                                     )
                                 }
@@ -277,12 +279,12 @@ fun ItemUi(
     }
 }
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
     val navController = rememberNavController()
     HomeScreen(navController = navController)
-}
+}*/
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

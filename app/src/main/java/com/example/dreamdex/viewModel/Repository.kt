@@ -43,7 +43,7 @@ class Repository {
     suspend fun getCharacterDetails(id: Int): Response<Data> {
         val query = """
         query (${'$'}id: Int!) {
-            Character(id: ${'$'}id) {
+            Character(id: ${'$'}) {
                 id
                 name {
                     full

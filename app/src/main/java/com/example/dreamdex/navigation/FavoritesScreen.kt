@@ -21,9 +21,14 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,17 +37,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+
 import androidx.navigation.NavHostController
-import com.example.dreamdex.navigation.BottomNavigationBar
-import com.example.dreamdex.navigation.TopBar
-import androidx.navigation.compose.rememberNavController
+
 import coil.compose.AsyncImage
 import com.example.dreamdex.db.CharactersViewModel
-import com.example.dreamdex.models.Data
-import com.example.dreamdex.models.Image
-import com.example.dreamdex.models.MediaConnection
-import com.example.dreamdex.models.Name
+
 
 /*@Composable
 fun FavoritesScreen(navController: NavController) {
@@ -72,24 +72,39 @@ fun FavoritesScreen(navController: NavController) {
         containerColor = androidx.compose.ui.graphics.Color.Transparent
     )
 }*/
-
 @Composable
 fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewModel) {
-    val favorites by viewModel.favorites.collectAsState()
+    val allFavorites by viewModel.favorites.collectAsState() // Complete list of favorites
+    var searchQuery by remember { mutableStateOf("") } // State to store search input
+
+    // Filtered list based on search query
+    val filteredFavorites = allFavorites.filter {
+        it.name.contains(searchQuery, ignoreCase = true)
+    }
 
     Scaffold(
-        topBar = { TopBar("Favorites") },
+        topBar = {
+            Column {
+                TopBar("Favorites")
+                // Add a search bar below the top bar
+                SearchBar(
+                    query = searchQuery,
+                    onQueryChanged = { searchQuery = it },
+                    onClearQuery = { searchQuery = "" }
+                )
+            }
+        },
         bottomBar = { BottomNavigationBar(navController) },
         containerColor = Color.Transparent,
         content = { paddingValues ->
-            if (favorites.isEmpty()) {
+            if (filteredFavorites.isEmpty()) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("No favorites yet.")
+                    Text("No favorites found.")
                 }
             } else {
                 LazyVerticalGrid(
@@ -98,15 +113,15 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
                         .fillMaxSize()
                         .padding(paddingValues)
                 ) {
-                    items(favorites.size) { index ->
-                        val favorite = favorites[index]
+                    items(filteredFavorites.size) { index ->
+                        val favorite = filteredFavorites[index]
 
                         // Card with navigation logic
                         Card(
                             Modifier
                                 .wrapContentSize()
                                 .padding(10.dp)
-                                .clickable { navController.navigate("Details screen/${favorite.id}") }, // Navigation here
+                                .clickable { navController.navigate("Details screen/${favorite.id}") },
                             elevation = CardDefaults.cardElevation(8.dp)
                         ) {
                             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
@@ -115,11 +130,7 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
                                     contentDescription = favorite.name,
                                     modifier = Modifier
                                         .fillMaxSize()
-                                        .clip(
-                                            RoundedCornerShape(
-                                                10.dp
-                                            )
-                                        ),
+                                        .clip(RoundedCornerShape(10.dp)),
                                     contentScale = ContentScale.Crop
                                 )
                                 Column(
@@ -140,7 +151,6 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
                                             fontWeight = FontWeight.Bold
                                         )
 
-                                        // Assuming you have a way to determine if a character is a favorite
                                         val isFavorite = true // Replace with your logic
 
                                         Icon(
@@ -166,4 +176,31 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
             }
         }
     )
+}
+
+@Composable
+fun SearchBar(query: String, onQueryChanged: (String) -> Unit, onClearQuery: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent)
+            .padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TextField(
+            value = query,
+            onValueChange = onQueryChanged,
+            modifier = Modifier.weight(1f),
+            placeholder = { Text("Search Characters") }
+        )
+        if (query.isNotEmpty()) {
+            Text(
+                text = "Clear",
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .clickable { onClearQuery() },
+                color = Color.Red
+            )
+        }
+    }
 }

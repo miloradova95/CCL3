@@ -20,7 +20,7 @@ fun Navigation() {
         }
 
         composable("Home screen"){
-            HomeScreen(navController = navController)
+            HomeScreen(navController = navController, charactersViewModel = charactersViewModel)
         }
 
         composable("Details screen/{id}",

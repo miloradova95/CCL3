@@ -8,6 +8,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -15,18 +17,42 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.example.dreamdex.db.CharactersViewModel
+import com.example.dreamdex.db.FavoriteCharacter
 import com.example.dreamdex.models.Data
 import com.example.dreamdex.viewModel.CharacterViewModel
 
 @Composable
 fun DetailsScreen(
     id: Int,
-    characterViewModel: CharacterViewModel = viewModel()
+    characterViewModel: CharacterViewModel = viewModel(),
+    charactersViewModel: CharactersViewModel = viewModel()
 ) {
-    // Fetch the character data using the id
-    val character: Data? = characterViewModel.state.characters.find { it.id == id }
+    val character = remember { mutableStateOf<FavoriteCharacter?>(null) }
 
-    if (character == null) {
+    charactersViewModel.isFavorite(id, callback = { isFav ->
+
+            if(isFav) {
+                character.value = charactersViewModel.favorites.value.find { it.id == id }
+            }
+            else {
+                val characterData = characterViewModel.state.characters.find { it.id == id }
+                if (characterData != null) {
+                    character.value = FavoriteCharacter(
+                        characterData.id,
+                        characterData.name.full,
+                        characterData.image.large,
+                        characterData.description
+                    )
+                }
+            }
+        }
+    )
+
+
+    // Fetch the character data using the id
+
+    if (character.value == null) {
         // Show an error or loading message if character not found
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -49,7 +75,7 @@ fun DetailsScreen(
         ) {
             // Name of the character
             Text(
-                text = character.name.full,
+                text = character.value!!.name,
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -61,8 +87,8 @@ fun DetailsScreen(
 
             // Image of the character
             AsyncImage(
-                model = character.image.large,
-                contentDescription = character.name.full,
+                model = character.value!!.image,
+                contentDescription = character.value!!.name,
                 modifier = Modifier
                     .width(200.dp)
                     .height(300.dp)
@@ -71,7 +97,7 @@ fun DetailsScreen(
             )
 
             // Description (at the end)
-            character.description?.let {
+            character.value!!.description?.let {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()

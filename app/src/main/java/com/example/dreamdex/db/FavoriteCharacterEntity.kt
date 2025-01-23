@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class FavoriteCharacter(
     @PrimaryKey val id: Int,
     val name: String,
-    val image: String
+    val image: String,
+    val description: String?
 )
 
