@@ -61,7 +61,7 @@ import com.example.dreamdex.db.FavoriteCharacter
 @Composable
 fun HomeScreen(navController: NavHostController, charactersViewModel: CharactersViewModel) {
     val characterViewModel = viewModel<CharacterViewModel>()
-
+    // it is calling its own viewModel
 
     val state = characterViewModel.state
     val favoriteCharacters = charactersViewModel.favorites.collectAsState(initial = emptyList()).value
