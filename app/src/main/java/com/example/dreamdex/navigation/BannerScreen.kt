@@ -42,7 +42,7 @@ fun BannerScreen(navController: NavHostController) {
         Column(modifier.wrapContentHeight()
             .fillMaxWidth()
             .align(Alignment.BottomCenter)
-            .background(color = Color.White.copy(0.4f), RoundedCornerShape(20.dp))
+            .background(color = Color.White.copy(0.5f), RoundedCornerShape(20.dp))
             .border(0.5.dp, Color.White, RoundedCornerShape(topEnd = 20.dp, topStart = 20.dp)),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -51,30 +51,31 @@ fun BannerScreen(navController: NavHostController) {
             Text(
                 text = "DreamDex",
                 modifier.padding(vertical = 25.dp),
-                fontWeight = FontWeight.Thin,
-                color = Color.Black,
+                //fontWeight = FontWeight.Thin,
+                color = Color(0xFF00315D),
                 style = TextStyle(
                     fontSize = 34.sp,
-                    shadow = Shadow(
+                    /*shadow = Shadow(
                         color = Color(0xFFFC5A03),
                         offset = offset, blurRadius = 3f
-                    ),
-                    fontFamily = FontFamily(Font(R.font.metal_mania)),
+                    ),*/
+                    fontFamily = FontFamily(Font(R.font.bubble_mint)),
                     textAlign = TextAlign.Center
                 )
             )
             Button(onClick = { navController.navigate("Home Screen")}
                 ,modifier.padding(bottom = 55.dp, start = 20.dp, end = 20.dp)
                     .fillMaxWidth()
-                    .background(color = Color.Gray.copy(0.8f), RoundedCornerShape(16.dp)),
+                    .background(color = Color.White.copy(0.8f), RoundedCornerShape(16.dp)),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent
                 )
             ) {
                 Text(text = "Browse", style = TextStyle(
-                    fontSize = 30.sp,
-                    color = Color.Black,
-                    fontFamily = FontFamily(Font(R.font.metal_mania)),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color(0xFF00315D),
+                    fontFamily = FontFamily(Font(R.font.inter)),
                     textAlign = TextAlign.Center
                 ))
             }

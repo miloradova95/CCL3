@@ -3,7 +3,9 @@ package com.example.dreamdex.navigation
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -20,6 +22,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.TextStyle
@@ -38,7 +41,6 @@ import com.example.dreamdex.R
 import com.example.dreamdex.models.Data
 import com.example.dreamdex.viewModel.CharacterViewModel
 
-
 @Composable
 fun CharacterOfTheDayScreen(navController: NavHostController) {
     val characterViewModel = viewModel<CharacterViewModel>()
@@ -50,7 +52,6 @@ fun CharacterOfTheDayScreen(navController: NavHostController) {
         null
     }
 
-
     Scaffold(
         topBar = {
             TopBar(title = "Character of the Day")
@@ -61,22 +62,37 @@ fun CharacterOfTheDayScreen(navController: NavHostController) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
-                    .background(Color.Transparent),
+                    .padding(top = 50.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = " Random Character Generator ",
-                    fontSize = 28.sp,
-                    style = TextStyle(
-                        fontSize = 34.sp,
-                        shadow = Shadow(
-                            color = Color(0xFFFC5A03),
-                        ),
-                        fontFamily = FontFamily(Font(R.font.metal_mania)),
-                        textAlign = TextAlign.Center
-                    ),
-                    modifier = Modifier.padding(16.dp)
+                    text = "DreamDex",
+                    fontFamily = FontFamily(Font(R.font.bubble_mint)),
+                    textAlign = TextAlign.Center,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color(0xFF00315D),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .clickable { navController.navigate("Home Screen") }
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    text = "Character",
+                    fontFamily = FontFamily(Font(R.font.git_sans)),
+                    textAlign = TextAlign.Center,
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF00315D)
+                )
+                Spacer(modifier = Modifier.width(8.dp))  // Adjust the width to control the space
+                Text(
+                    text = "Randomizer",
+                    fontFamily = FontFamily(Font(R.font.git_sans)),
+                    textAlign = TextAlign.Center,
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF00315D)
                 )
 
                 if (randomCharacter != null) {
@@ -87,39 +103,44 @@ fun CharacterOfTheDayScreen(navController: NavHostController) {
                                 navController.navigate("Details screen/${randomCharacter.id}")
                             },
                         shape = RoundedCornerShape(12.dp),
-                        elevation = CardDefaults.cardElevation(8.dp),
+                        //elevation = CardDefaults.cardElevation(8.dp),
                     ) {
                         Column(
                             modifier = Modifier
-                                .background(Color.White)
-                                .padding(16.dp),
+                                .fillMaxWidth()
+                                .background(Color(0xFFD1C6FF))
+                                .padding(10.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             AsyncImage(
-                                model = randomCharacter.image?.large ?: R.drawable.placeholder_image,
-                                contentDescription = randomCharacter.name?.full ?: "Character of the Day",
+                                model = randomCharacter.image?.large
+                                    ?: R.drawable.placeholder_image,
+                                contentDescription = randomCharacter.name?.full
+                                    ?: "Character of the Day",
                                 modifier = Modifier
                                     .padding(8.dp)
                                     .width(200.dp)
-                                    .height(300.dp)
+                                    .height(260.dp)
+                                    .clip(RoundedCornerShape(15.dp))
                             )
                             Text(
                                 text = randomCharacter.name?.full ?: "Unknown Character",
-                                fontSize = 24.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.Black
-                            )
-                            Text(
-                                text = "Click to see more details about this character!",
                                 fontSize = 16.sp,
-                                color = Color.Gray
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF00315D),
+                                fontFamily = FontFamily(Font(R.font.inter)),
                             )
+                            /*Text(
+                                text = "Click to see more details about this character!",
+                                fontSize = 18.sp,
+                                color = Color.Gray
+                            )*/
                         }
                     }
                 } else {
                     Text(
-                        text = "No characters available for the day!",
-                        fontSize = 18.sp,
+                        text = "Chotto Matte!",
+                        fontSize = 15.sp,
                         color = Color.Gray
                     )
                 }

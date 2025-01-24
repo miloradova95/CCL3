@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -30,6 +31,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -43,10 +45,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -80,8 +85,31 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
+                    .padding(top = 50.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Text(
+                    text = "DreamDex",
+                    fontFamily = FontFamily(Font(R.font.bubble_mint)),
+                    textAlign = TextAlign.Center,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color(0xFF00315D),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .clickable { navController.navigate("Home Screen") }
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    text = "Characters",
+                    fontFamily = FontFamily(Font(R.font.git_sans)),
+                    textAlign = TextAlign.Center,
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF00315D),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                )
                 SearchBar(
                     query = searchQuery.value,
                     onSearchQueryChange = { searchQuery.value = it }
@@ -91,18 +119,23 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
                 Button(
                     onClick = { characterViewModel.loadMoreCharacters() },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
+                        .width(170.dp)
+                        .align(Alignment.CenterHorizontally)
+                        .padding(0.dp)
                 ) {
-                    Text("More Characters")
+                    Text(
+                        text = "More Characters",
+                        fontSize = 15.sp,
+                        color = Color(0xFF00315D))
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     modifier = Modifier
                         .fillMaxSize()
+                        .padding(horizontal = 14.dp)
                         .background(Color.Transparent)
                 ) {
                     if (filteredCharacters.isNotEmpty()) {
@@ -120,7 +153,10 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
                                 modifier = Modifier.fillMaxSize(),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text("No characters found")
+                                Text(
+                                    text = "Sumimasen! No characters found",
+                                    color = Color.Gray)
+
                             }
                         }
                     }
@@ -132,6 +168,7 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
     query: String,  // query is now passed from the parent composable
@@ -141,59 +178,23 @@ fun SearchBar(
         TextField(
             value = query,  // Use the query value passed from the parent
             onValueChange = onSearchQueryChange,  // Pass the change handler
-            label = { Text("Search Characters") },
+            label = { Text(
+                text = "Search Characters",
+                color = Color(0xFFD1C6FF)) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            singleLine = true
+                .padding(horizontal = 20.dp, vertical = 10.dp)
+                //.height(48.dp)
+                .clip(RoundedCornerShape(40.dp))
+                .background(Color.White.copy(alpha = 0.4f)),
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            )
         )
     }
 }
-
-/*@Composable
-fun ItemUi(itemIndex: Int, characterList: List<Data>, navController: NavHostController) {
-    Card(
-        Modifier
-            .wrapContentSize()
-            .padding(10.dp)
-            .clickable {
-                navController.navigate("Details screen/${characterList[itemIndex].id}")
-            },
-        elevation = CardDefaults.cardElevation(8.dp)
-    ) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
-            AsyncImage(
-                model = characterList[itemIndex].image?.large ?: R.drawable.placeholder_image, // Adjusted for AniList
-                contentDescription = characterList[itemIndex].name?.full ?: "Character", // Adjusted for AniList
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(RoundedCornerShape(10.dp)),
-                contentScale = ContentScale.Crop
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .background(Color.LightGray.copy(.7f))
-                    .padding(6.dp)
-            ) {
-                Text(
-                    text = characterList[itemIndex].name?.full ?: "Unknown", // Adjusted for AniList
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    style = TextStyle(
-                        shadow = Shadow(
-                            Color(0xFFFC6603), offset = Offset(1f, 1f), 3f
-                        )
-                    )
-                )
-            }
-        }
-    }
-}*/
 
 @Composable
 fun ItemUi(
@@ -224,13 +225,15 @@ fun ItemUi(
                 contentDescription = character.name.full ?: "Character",
                 modifier = Modifier
                     .fillMaxSize()
-                    .clip(RoundedCornerShape(10.dp)),
+                    .width(200.dp)
+                    .height(260.dp)
+                    .clip(RoundedCornerShape(15.dp)),
                 contentScale = ContentScale.Crop
             )
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .background(Color.LightGray.copy(.7f))
+                    .background(Color.White.copy(.7f))
                     .padding(6.dp)
             ) {
                 Row(
@@ -241,8 +244,9 @@ fun ItemUi(
                         text = character.name.full ?: "Unknown",
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Start,
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold
+                        color = Color(0xFF00315D), // Keep only this one
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily(Font(R.font.inter))
                     )
 
                     Icon(

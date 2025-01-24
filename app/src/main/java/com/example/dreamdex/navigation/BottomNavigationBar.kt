@@ -1,10 +1,13 @@
 package com.example.dreamdex.navigation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
@@ -15,28 +18,33 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.google.android.gms.maps.model.Circle
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
     // Get the current route from the NavHostController to determine if we're on the Favorites screen
     val currentBackStackEntry = navController.currentBackStackEntryAsState()
 
-    val iconColor = Color(0xFF00315D)
+    //val iconColor = Color(0xFF00315D)
+    val iconColor = Color(0xFFD1C6FF)
 
     BottomAppBar(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White),
+            .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+            .background(color = Color.White.copy(0.5f), RoundedCornerShape(20.dp)),
+            //.border(0.5.dp, Color.White, RoundedCornerShape(topEnd = 20.dp, topStart = 20.dp)),
         contentPadding = PaddingValues(0.dp),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(8.dp),
+                .padding(5.dp),
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -53,8 +61,6 @@ fun BottomNavigationBar(navController: NavHostController) {
                     .padding(8.dp),
                 tint = iconColor
             )
-
-            // Globe Icon
             Icon(
                 imageVector = Icons.Outlined.Star,
                 contentDescription = "Explore",
@@ -65,7 +71,6 @@ fun BottomNavigationBar(navController: NavHostController) {
                 tint = iconColor
             )
 
-            // Heart Icon for Favorites
             val isFavoritesScreen = currentBackStackEntry.value?.destination?.route == "Favorites Screen"
             val favoriteIcon = if (isFavoritesScreen) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder
 

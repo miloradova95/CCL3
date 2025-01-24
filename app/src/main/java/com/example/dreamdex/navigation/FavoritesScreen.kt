@@ -2,13 +2,17 @@ package com.example.dreamdex.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -34,44 +38,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 import androidx.navigation.NavHostController
 
 import coil.compose.AsyncImage
+import com.example.dreamdex.R
 import com.example.dreamdex.db.CharactersViewModel
 
 
-/*@Composable
-fun FavoritesScreen(navController: NavController) {
-    // Ensure that navController is a NavHostController
-    val navHostController = navController as? NavHostController ?: rememberNavController()
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            // Use the same TopBar composable for styling consistency
-            TopBar("Favorites")
-        },
-        bottomBar = { BottomNavigationBar(navController = navHostController) },
-        content = { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-            ) {
-                // Here you can add your favorite characters list or other content
-                /*Text(
-                    text = "List of your favorite characters will be displayed here.",
-                    modifier = Modifier.padding(16.dp)
-                )*/
-            }
-        },
-        containerColor = androidx.compose.ui.graphics.Color.Transparent
-    )
-}*/
 @Composable
 fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewModel) {
     val allFavorites by viewModel.favorites.collectAsState() // Complete list of favorites
@@ -83,10 +64,40 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
     }
 
     Scaffold(
-        topBar = {
-            Column {
-                TopBar("Favorites")
-                // Add a search bar below the top bar
+        topBar = { TopBar("Favorites")
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+
+                Spacer(modifier = Modifier.height(0.dp))
+
+                Text(
+                    text = "DreamDex",
+                    fontFamily = FontFamily(Font(R.font.bubble_mint)),
+                    textAlign = TextAlign.Center,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color(0xFF00315D),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .clickable { navController.navigate("Home Screen") }
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    text = "Favorites",
+                    fontFamily = FontFamily(Font(R.font.git_sans)),
+                    textAlign = TextAlign.Center,
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF00315D),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .clickable { navController.navigate("Home Screen") }
+                )
                 SearchBar(
                     query = searchQuery,
                     onQueryChanged = { searchQuery = it },
@@ -104,13 +115,16 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
                         .padding(paddingValues),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("No favorites found.")
+                    Text(
+                        text = "No favorites found",
+                        color = Color.Gray)
                 }
             } else {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     modifier = Modifier
                         .fillMaxSize()
+                        .padding(horizontal = 14.dp)
                         .padding(paddingValues)
                 ) {
                     items(filteredFavorites.size) { index ->
@@ -130,13 +144,15 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
                                     contentDescription = favorite.name,
                                     modifier = Modifier
                                         .fillMaxSize()
+                                        .width(200.dp)
+                                        .height(260.dp)
                                         .clip(RoundedCornerShape(10.dp)),
                                     contentScale = ContentScale.Crop
                                 )
                                 Column(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .background(Color.LightGray.copy(.7f))
+                                        .background(Color.White.copy(.7f))
                                         .padding(6.dp)
                                 ) {
                                     Row(
@@ -148,7 +164,9 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
                                             modifier = Modifier.weight(1f),
                                             textAlign = TextAlign.Start,
                                             color = Color.Black,
-                                            fontWeight = FontWeight.Bold
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 14.sp,
+                                            fontFamily = FontFamily(Font(R.font.inter)),
                                         )
 
                                         val isFavorite = true // Replace with your logic
@@ -184,14 +202,26 @@ fun SearchBar(query: String, onQueryChanged: (String) -> Unit, onClearQuery: () 
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.Transparent)
-            .padding(8.dp),
+            .padding(0.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
             value = query,
             onValueChange = onQueryChanged,
-            modifier = Modifier.weight(1f),
-            placeholder = { Text("Search Characters") }
+            label = { Text(
+                text = "Search Characters",
+                color = Color(0xFFD1C6FF)) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 10.dp)
+                //.height(48.dp)
+                .clip(RoundedCornerShape(40.dp)),
+            singleLine = true,
+            placeholder = { Text(
+                text = "Search Characters",
+                fontWeight = SemiBold,
+                fontFamily = FontFamily(Font(R.font.inter)),
+                color = Color(0xFF00315D)) }
         )
         if (query.isNotEmpty()) {
             Text(
@@ -199,7 +229,7 @@ fun SearchBar(query: String, onQueryChanged: (String) -> Unit, onClearQuery: () 
                 modifier = Modifier
                     .padding(start = 8.dp)
                     .clickable { onClearQuery() },
-                color = Color.Red
+                color = Color(0xFF00315D)
             )
         }
     }
