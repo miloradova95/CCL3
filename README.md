@@ -368,9 +368,6 @@ Notes:
 In hindsight, not asking for help earlier really backfired on us. We both wanted to solve the issue ourselves, but asking for help sooner would have saved us time and frustration. It turned out to be a valuable learning experience, although a frustrating one.
 The API also presented some challenges. While it provided good information on the characters, the pagination issue made things more complicated. It prevented us from implementing a filtering option, and we can’t search for every character. Despite this, AniList turned out to be one of the best APIs for anime characters, so we knew it wasn't going to get any better. We just didn’t anticipate the challenges with pagination, as we hadn’t faced this issue with other APIs. It makes sense in hindsight: without pagination, we would be dealing with over 17,000 characters.
 
-# APK FILE:
-
-
 
 
 
