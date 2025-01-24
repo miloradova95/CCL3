@@ -270,3 +270,108 @@ Confidence: “How confident did you feel completing this task?” (1 = Very Con
 Open-Ended Question: Is there a feature you wish the app had?
 
 
+# Documentation:
+
+## Pre-Project:
+
+### Aleks and Tiffany: 
+
+Before the presentation of our concept, we brainstormed possible ideas and quickly agreed to focus on something related to anime, a shared interest of ours. While exploring potential directions, we noticed a gap in MyAnimeList, one of the largest anime platforms: there was no way to save or favorite individual characters. However, since MyAnimeList’s API isn’t open source, we turned to Jikan, an unofficial open-source API for MyAnimeList.
+
+Initially, we considered expanding the concept to include characters beyond anime, but we decided to keep the app focused and straightforward. We felt this approach would better target anime enthusiasts by offering a dedicated anime character app.
+
+## Monday, 13th January 2025
+
+We demonstrated our idea with wireframes showcasing four main pages: a "Character of the Day" feature, a detailed character page, a browsing interface to explore the character list, and a favorites list where users can save their preferred characters.
+
+## Tuesday, 14th – Wednesday, 15th January 2025 
+
+On Tuesday, we began testing the Jikan API. While it provided some character data, we discovered significant limitations. Even for popular anime characters, the information was sparse, with a stronger focus on voice actors rather than character attributes. This limitation is also evident in the MyAnimeList app itself. Therefore, we turned to AniList, another anime database with more detailed character descriptions. While the level of detail varies, AniList consistently offers sufficient information for our concept.
+
+### Aleks: 
+
+After confirming that the API was functional and appropriate for our needs, I began developing our application, DreamDex. I integrated the API by fetching data from AniList, ensuring we could access detailed information about anime characters…
+
+### Tiffany:
+
+I focused on designing the app’s pages and creating mockups that bring our concept to life. Rather than opting for a minimalistic approach, I chose a more vibrant and playful design to better reflect the eccentric nature of anime. The header fonts are distinctive, giving the app personality, and the background features a soft gradient design, a current design trend that adds energy and visual appeal. To maintain consistency and tie the app to the anime community, I incorporated navy blue accents throughout the design as a tribute to MyAnimeList, a platform we both like and use regularly.
+
+## Thursday, 16th – Friday 17th January 2025
+
+### Aleks and Tiffany:
+
+We began developing a usability test plan to ensure the app's functionality and design met user expectations. During a heuristics evaluation of our initial mockups, we identified several key usability improvements:
+Adding a "Confirm Favoriting Action" prompt.
+Touching up the filtering options for characters.
+Including a search function within the favorites screen as well.
+Adjusting icon designs to stand out more prominently against the background.
+Displaying the anime title alongside each character name for added context.
+Our user test plan aimed to assess user confidence while navigating the app. To achieve this, we measured task completion rates, observed signs of hesitation or frustration, and collected user ratings using the Single Ease Question (SEQ) to assess the perceived difficulty of each task and their confidence levels. To gather additional insights, we incorporated a System Usability Scale (SUS) evaluation, which could provide feedback beyond what task observations alone might reveal.
+Saturday, 18th  – Tuesday, 21st January 2025
+
+### Aleks and Tiffany:
+
+We collaborated on building the app and added a search function to the browsing page, allowing users to easily search for any character. Additionally, we implemented a favoriting feature where users can favorite a character. When a character is favorited, the heart icon changes from an outline to a filled heart, and the favorited characters are saved in the database.
+
+However, when we began working on the Room database, we encountered a series of persistent errors. Each attempt to resolve one error seemed to generate new ones, turning what we initially thought would be a one-day task into a frustrating five-day challenge: 
+
+### Aleks:
+
+From Sunday through Tuesday, I repeatedly tried to fix the issue by redoing the Room database, but the same problems reappeared regardless of the approach…
+
+By Tuesday, we realized we really needed assistance; I reached out to Mr. Oswald for help. While he was able to guide me through solving one error during a call, new errors emerged shortly afterward, leaving us still grappling with the problem.
+
+### Tiffany: 
+
+While Aleks was working on the Room database, I focused on adding more app features. I completed the navigation setup and added two new pages to complement the existing browsing page that displayed the character list. My primary focus was functionality over UI, so I used Jetpack icons to represent each page for clarity and simplicity. One of the new pages I started working on was the "Character of the Day" page, designed to showcase a different character daily. 
+
+Since there were still issues with the database, we decided to switch tasks. I took over restarting the Room database setup and worked on it for the rest of Tuesday, but unfortunately, I encountered the same problems that Aleks had previously faced. 
+
+## Wednesday, 22nd January 2025:
+
+Aleks and Tiffany:
+Both of us had tried solutions suggested by ChatGPT and Stack Overflow, but each attempt only led to new errors.
+Main Error: 
+java.lang.IllegalAccessError: superclass access check failed: class org.jetbrains.kotlin.kapt3.base.javac.KaptJavaCompiler (in unnamed module @0x4f4c104b) cannot access class com.sun.tools.javac.main.JavaCompiler (in module jdk.compiler) because module jdk.compiler does not export com.sun.tools.javac.main to unnamed module @0x4f4c104b
+
+Explanation:
+Apparently the version we were using of Kotlin wasnt compatible with JDK 16+ due to module system restrictions. The kapt was trying to access the internal Java compiler, which were no longer accessible by default in JDK 16 and above due to stricter module system. 
+
+### Tiffany:
+
+After one final attempt to resolve the errors in the morning, I went to the site and asked one of the tutors, Katharina, for help, and she was a lifesaver. We went through the errors together, clicking through various links and trying different solutions. We kept adjusting the dependencies, plugins, and the Kotlin version, but the same issue persisted. Eventually, we asked Alikhan, who was sitting nearby, how his Gradle setup looked. He had used the solution that Mr. Oswald had recommended—switching from kapt to ksp, a Kotlin-first alternative to kapt. With that change, the application finally worked!
+Ultimately, we discovered that the root cause of the problem was the use of kapt, a Kotlin annotation processing tool, which was incompatible with our setup.
+However, another problem arose… The app wasn’t able to fetch data from the AniList API, causing the character list browsing page to remain empty. Katharina showed me two effective ways to debug, which I’ll definitely use in the future: one using the break point and the other using Logcat. Katharina quickly spotted the issue: due to my lack of RAM space after the Room database was working, I had used a remote emulator instead of a virtual one. Additionally, the Nokia phone I was using was connected to Wi-Fi, which was restricting access to the API. Once I switched to hotspot, everything worked as expected.
+When I hearted a character, the outline heart icon would fill, and the character was saved in the database. Unfortunately, it was saved behind the character list on the browsing page instead of the favorites page, which needed to be fixed. I, then pushed the updated database to Git.
+
+### Aleks:
+
+On Wednesday, I continued working on the app. We decided to switch from the ‘Character of the Day’ feature, which was complicated by tricky timestamps, to a ‘Random Character Generator’ instead. In addition to that, I focused on pagination issues: The AniList API uses pagination, so we had to implement it in our app. This led to several challenges: we couldn’t create a filtering option as it would only filter the first page, and the search function was limited to searching characters on the first page as well.
+Once the database issue was resolved, I pulled the database to my branch and merged the work I had done throughout the day. Since characters weren’t being saved to the favorites screen, I was able to fix that. I also added a search function to the favorites screen, allowing users to look through their saved characters. Additionally, I created a “more characters” button to allow users to access other pages of characters.
+Even though the favorite characters now appeared on the correct screen, there was still an issue: the favorite page wouldn’t refresh, so newly added characters weren’t displayed.
+For the rest of the day, I focused on collecting data for the user tests. I conducted tests with three people in person. As we’re still working on the app, we plan to incorporate the users' feedback after the presentation.
+Thursday, 23rd January 2025:
+
+### Aleks and Tiffany:
+
+We both went to the FH to get help with fixing the issue on the favorites screen, and once again, Katharina was a lifesaver. She helped us resolve the problem, and we also added the anime titles to the character details page, as we thought users would appreciate knowing the origin of the characters.
+However, as we moved forward, we encountered another issue. When navigating to a character page after browsing from the first page of the character list, and clicking on a character to view their details, the page appeared empty. We could only access the details page from characters listed on the first page of the browsing screen, the favorites list, and the random character generator. Interestingly, if we favorited a character from the second page and viewed them in the favorites section, their information would display correctly. 
+The Problem:
+The issue stemmed from the fact that the home and favorites screen, both had their own ViewModel. The other screens were sharing one ViewModel, which caused the data not to be correctly passed or displayed. We realized that we needed to create separate ViewModels for each screen to ensure the correct data would be passed and shown on each page.
+Tiffany:
+For the rest of the day, I focused on adding the finishing touches to the app's UI design in preparation for the final presentation. Additionally, I conducted two user tests.
+
+### Aleks:
+
+I worked on the presentation and continued fine-tuning the features we we had implemented so far.
+Notes:
+In hindsight, not asking for help earlier really backfired on us. We both wanted to solve the issue ourselves, but asking for help sooner would have saved us time and frustration. It turned out to be a valuable learning experience, although a frustrating one.
+The API also presented some challenges. While it provided good information on the characters, the pagination issue made things more complicated. It prevented us from implementing a filtering option, and we can’t search for every character. Despite this, AniList turned out to be one of the best APIs for anime characters, so we knew it wasn't going to get any better. We just didn’t anticipate the challenges with pagination, as we hadn’t faced this issue with other APIs. It makes sense in hindsight: without pagination, we would be dealing with over 17,000 characters.
+
+# APK FILE:
+
+
+
+
+
+
