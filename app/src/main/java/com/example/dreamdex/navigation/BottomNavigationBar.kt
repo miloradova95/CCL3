@@ -8,9 +8,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Face
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
@@ -23,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.google.android.gms.maps.model.Circle
+
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
@@ -36,6 +38,7 @@ fun BottomNavigationBar(navController: NavHostController) {
     BottomAppBar(
         modifier = Modifier
             .fillMaxWidth()
+            .height(80.dp)
             .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
             .background(color = Color.White.copy(0.5f), RoundedCornerShape(20.dp)),
             //.border(0.5.dp, Color.White, RoundedCornerShape(topEnd = 20.dp, topStart = 20.dp)),
@@ -53,7 +56,7 @@ fun BottomNavigationBar(navController: NavHostController) {
             val homeIcon = if (isHomeScreen) Icons.Filled.Home else Icons.Outlined.Home
 
             Icon(
-                imageVector = homeIcon,
+                imageVector = Icons.Outlined.PlayArrow,
                 contentDescription = "Home",
                 modifier = Modifier
                     .size(50.dp)
@@ -62,7 +65,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 tint = iconColor
             )
             Icon(
-                imageVector = Icons.Outlined.Star,
+                imageVector = Icons.Outlined.Face,
                 contentDescription = "Explore",
                 modifier = Modifier
                     .size(50.dp)

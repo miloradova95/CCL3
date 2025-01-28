@@ -80,23 +80,20 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
                     fontFamily = FontFamily(Font(R.font.bubble_mint)),
                     textAlign = TextAlign.Center,
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.Normal,
                     color = Color(0xFF00315D),
                     modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .clickable { navController.navigate("Home Screen") }
+                        .padding(horizontal = 16.dp)
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = "Favorites",
                     fontFamily = FontFamily(Font(R.font.git_sans)),
                     textAlign = TextAlign.Center,
-                    fontSize = 50.sp,
+                    fontSize = 40.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF00315D),
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
-                        .clickable { navController.navigate("Home Screen") }
                 )
                 SearchBar(
                     query = searchQuery,

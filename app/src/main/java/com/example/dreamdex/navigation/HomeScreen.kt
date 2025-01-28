@@ -88,23 +88,23 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
                     .padding(top = 50.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
+                Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = "DreamDex",
                     fontFamily = FontFamily(Font(R.font.bubble_mint)),
                     textAlign = TextAlign.Center,
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.Normal,
                     color = Color(0xFF00315D),
                     modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .clickable { navController.navigate("Home Screen") }
+                        .padding(horizontal = 16.dp)
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = "Characters",
                     fontFamily = FontFamily(Font(R.font.git_sans)),
                     textAlign = TextAlign.Center,
-                    fontSize = 50.sp,
+                    fontSize = 40.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF00315D),
                     modifier = Modifier
@@ -129,14 +129,15 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
                         color = Color(0xFF00315D))
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(5.dp))
 
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 14.dp)
-                        .background(Color.Transparent)
+                        .background(Color.Transparent),
+                    contentPadding = paddingValues,
                 ) {
                     if (filteredCharacters.isNotEmpty()) {
                         items(filteredCharacters.size) {
@@ -184,7 +185,7 @@ fun SearchBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 10.dp)
-                //.height(48.dp)
+                .height(48.dp)
                 .clip(RoundedCornerShape(40.dp))
                 .background(Color.White.copy(alpha = 0.4f)),
             singleLine = true,
@@ -298,7 +299,8 @@ fun TopBar(title: String) {
     TopAppBar(
         title = {
             Box(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
 
