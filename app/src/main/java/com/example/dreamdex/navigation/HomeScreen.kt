@@ -18,12 +18,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -39,6 +42,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,7 +63,7 @@ import com.example.dreamdex.models.Data
 import com.example.dreamdex.viewModel.CharacterViewModel
 import com.example.dreamdex.db.CharactersViewModel
 import com.example.dreamdex.db.FavoriteCharacter
-
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(navController: NavHostController, charactersViewModel: CharactersViewModel) {
@@ -93,8 +97,11 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
         }
     }
 
+    // LazyGridState to manage scroll position
+    val listState = rememberLazyGridState()
+    val coroutineScope = rememberCoroutineScope()
+
     Scaffold(
-        modifier = Modifier,
         topBar = { TopBar("Characters") },
         bottomBar = { BottomNavigationBar(navController) },
         content = { paddingValues ->
@@ -106,7 +113,7 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(bottom = 100.dp), // Add some bottom padding to create space for the button
+                        .padding(bottom = 100.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
@@ -146,12 +153,16 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
 
                         Button(
                             onClick = { isTwoColumns.value = !isTwoColumns.value },
-                            modifier = Modifier.width(50.dp).height(48.dp)
+                            modifier = Modifier.width(50.dp).height(48.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFF00315D))
                         ) {
                             Text(
-                                text = if (isTwoColumns.value) "3" else "2",
+                                text = if (isTwoColumns.value) "〣" else "〢",
                                 fontSize = 15.sp,
-                                color = Color(0xFF00315D)
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White,
+                                textAlign = TextAlign.Center
                             )
                         }
                     }
@@ -159,13 +170,14 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
                     Spacer(modifier = Modifier.height(10.dp))
 
                     LazyVerticalGrid(
+                        state = listState,
                         columns = if (isTwoColumns.value) GridCells.Fixed(2) else GridCells.Fixed(3),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 14.dp)
                             .background(Color.Transparent)
                             .weight(1f),
-                        contentPadding = PaddingValues(bottom = 20.dp)
+                        contentPadding = PaddingValues(bottom = 40.dp)
                     ) {
                         if (filteredCharacters.isNotEmpty()) {
                             items(filteredCharacters.size) { index ->
@@ -178,22 +190,40 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
                                 )
                             }
 
-                            // "More Characters" button
+                            // "More Characters" button as a Card
                             item {
-                                Box(
+                                val cardHeight = if (isTwoColumns.value) 240.dp else 150.dp
+
+                                Card(
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = 16.dp),
-                                    contentAlignment = Alignment.Center
+                                        .padding(7.dp)
+                                        .width(200.dp)
+                                        .height(cardHeight)
+                                        .clickable {
+                                            // Loads more characters
+                                            characterViewModel.loadMoreCharacters()
+
+                                            // Scrolls to top, first item
+                                            coroutineScope.launch {
+                                                listState.scrollToItem(0)
+                                            }
+                                        },
+                                    shape = RoundedCornerShape(15.dp),
+                                    elevation = CardDefaults.cardElevation(8.dp),
+                                    colors = CardDefaults.cardColors(containerColor = Color(0xFF00315D)) // Set color if needed
                                 ) {
-                                    Button(
-                                        onClick = { characterViewModel.loadMoreCharacters() },
-                                        modifier = Modifier.width(170.dp)
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(10.dp),
+                                        contentAlignment = Alignment.Center
                                     ) {
                                         Text(
                                             text = "More Characters",
                                             fontSize = 15.sp,
-                                            color = Color(0xFF00315D)
+                                            color = Color.White,
+                                            fontWeight = FontWeight.Bold,
+                                            textAlign = TextAlign.Center
                                         )
                                     }
                                 }
@@ -219,7 +249,6 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
     )
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
@@ -234,7 +263,7 @@ fun SearchBar(
             Text(
                 text = "Search Characters",
                 fontWeight = FontWeight.Medium,
-                color = Color(0xFF00315D)
+                color = Color(0xFF00315D),
             )
         },
         modifier = modifier
@@ -251,6 +280,7 @@ fun SearchBar(
             )
         },
         colors = TextFieldDefaults.textFieldColors(
+            containerColor = Color.White.copy(0.5f),
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         )
@@ -264,13 +294,13 @@ fun ItemUi(
     characterList: List<Data>,
     navController: NavHostController,
     viewModel: CharactersViewModel,
-    isTwoColumns: Boolean // Add this parameter
+    isTwoColumns: Boolean
 ) {
     val character = characterList[itemIndex]
     var isFavorite by remember { mutableStateOf(false) }
 
     viewModel.isFavorite(character.id) { isFav ->
-        isFavorite = isFav // Update the isFavorite state
+        isFavorite = isFav
     }
 
     val cardHeight = if (isTwoColumns) 240.dp else 150.dp
@@ -289,9 +319,9 @@ fun ItemUi(
                 model = character.image.large ?: R.drawable.placeholder_image,
                 contentDescription = character.name.full ?: "Character",
                 modifier = Modifier
-                    .fillMaxSize() // Ensures the image fills the entire card
-                    .clip(RoundedCornerShape(15.dp)), // Clip to match the card's rounded corners
-                contentScale = ContentScale.Crop // Ensures the image scales to cover the entire area
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(15.dp)),
+                contentScale = ContentScale.Crop
             )
 
             Column(
