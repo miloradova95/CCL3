@@ -68,7 +68,7 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 50.dp),
+                    .padding(top = 30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
@@ -92,7 +92,6 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
                     fontFamily = FontFamily(Font(R.font.git_sans)),
                     textAlign = TextAlign.Center,
                     fontSize = 50.sp,
-                    fontWeight = FontWeight.Bold,
                     color = Color(0xFF00315D),
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
@@ -121,7 +120,7 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
                 }
             } else {
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+                    columns = GridCells.Fixed(3),
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 14.dp)

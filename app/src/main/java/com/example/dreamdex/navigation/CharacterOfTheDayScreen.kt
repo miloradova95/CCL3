@@ -62,7 +62,7 @@ fun CharacterOfTheDayScreen(navController: NavHostController) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 50.dp),
+                    .padding(top = 30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -70,7 +70,6 @@ fun CharacterOfTheDayScreen(navController: NavHostController) {
                     fontFamily = FontFamily(Font(R.font.bubble_mint)),
                     textAlign = TextAlign.Center,
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.Normal,
                     color = Color(0xFF00315D),
                     modifier = Modifier
                         .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -82,16 +81,14 @@ fun CharacterOfTheDayScreen(navController: NavHostController) {
                     fontFamily = FontFamily(Font(R.font.git_sans)),
                     textAlign = TextAlign.Center,
                     fontSize = 50.sp,
-                    fontWeight = FontWeight.Bold,
                     color = Color(0xFF00315D)
                 )
-                Spacer(modifier = Modifier.width(8.dp))  // Adjust the width to control the space
+                Spacer(modifier = Modifier.width(4.dp))  // Adjust the width to control the space
                 Text(
                     text = "Randomizer",
                     fontFamily = FontFamily(Font(R.font.git_sans)),
                     textAlign = TextAlign.Center,
                     fontSize = 50.sp,
-                    fontWeight = FontWeight.Bold,
                     color = Color(0xFF00315D)
                 )
 

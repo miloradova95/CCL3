@@ -10,7 +10,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
+/*private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
     tertiary = Pink80
@@ -54,4 +54,25 @@ fun DreamDexTheme(
         typography = Typography,
         content = content
     )
-}
+}*/
+
+
+// FixedColorScheme
+/*private val FixedColorScheme = lightColorScheme(
+    primary = Purple40,
+    secondary = PurpleGrey40,
+    tertiary = Pink40
+    /* Other colors can be added here as needed */
+)
+
+@Composable
+fun DreamDexTheme(
+    content: @Composable () -> Unit
+) {
+    MaterialTheme(
+        colorScheme = FixedColorScheme,
+        typography = Typography,
+        content = content
+    )
+}*/
+

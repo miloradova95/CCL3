@@ -15,30 +15,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.dreamdex.navigation.Navigation
-import com.example.dreamdex.ui.theme.DreamDexTheme
+//import com.example.dreamdex.ui.theme.DreamDexTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            DreamDexTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = Color.White
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.background_image), // Replace with your drawable resource name
-                            contentDescription = null,
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Crop // Adjust the image scaling if needed
-                        )
-                        // Add other content here, if required
-                    }
+                    Image(
+                        painter = painterResource(id = R.drawable.background_image),
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop // Adjust the image scaling if needed
+                    )
                     Navigation()
                 }
             }

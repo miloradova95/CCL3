@@ -1,27 +1,27 @@
 package com.example.dreamdex.navigation
 
 
-import androidx.compose.animation.core.copy
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -49,12 +49,10 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.dreamdex.R
 import com.example.dreamdex.models.Data
@@ -69,12 +67,30 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
     // it is calling its own viewModel
 
     val state = characterViewModel.state
-    val favoriteCharacters = charactersViewModel.favorites.collectAsState(initial = emptyList()).value
+    val favoriteCharacters =
+        charactersViewModel.favorites.collectAsState(initial = emptyList()).value
 
-    val searchQuery = remember { mutableStateOf("") }
+    // UI elements
+    val searchQuery = remember { mutableStateOf("") } // stores the current search input
+    val isTwoColumns =
+        remember { mutableStateOf(true) } // stores whether the grid is displayed in two or three column-mode
 
-    val filteredCharacters = state.characters.filter {
-        it.name?.full?.contains(searchQuery.value, ignoreCase = true) == true
+    val filteredCharacters = state.characters.filter { character ->
+        val fullName = character.name?.full ?: ""
+        val nameParts = fullName.split(" ").map { it.lowercase() }
+
+        if (searchQuery.value.isEmpty()) {
+            true // Displays all characters when search is empty
+        } else {
+            val searchLower = searchQuery.value.lowercase()
+            val searchParts =
+                searchLower.split(" ") // First, middle, last names can be searched separately
+
+            // Checks if each part of the search matches the first letter(s) of the name
+            searchParts.all { searchPart ->
+                nameParts.any { namePart -> namePart.startsWith(searchPart) }
+            }
+        }
     }
 
     Scaffold(
@@ -82,81 +98,117 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
         topBar = { TopBar("Characters") },
         bottomBar = { BottomNavigationBar(navController) },
         content = { paddingValues ->
-            Column(
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 50.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .padding(top = 30.dp)
             ) {
-                Text(
-                    text = "DreamDex",
-                    fontFamily = FontFamily(Font(R.font.bubble_mint)),
-                    textAlign = TextAlign.Center,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Normal,
-                    color = Color(0xFF00315D),
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .clickable { navController.navigate("Home Screen") }
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                Text(
-                    text = "Characters",
-                    fontFamily = FontFamily(Font(R.font.git_sans)),
-                    textAlign = TextAlign.Center,
-                    fontSize = 50.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF00315D),
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                )
-                SearchBar(
-                    query = searchQuery.value,
-                    onSearchQueryChange = { searchQuery.value = it }
-                )
-
-                // "More Characters" button beneath the search bar
-                Button(
-                    onClick = { characterViewModel.loadMoreCharacters() },
-                    modifier = Modifier
-                        .width(170.dp)
-                        .align(Alignment.CenterHorizontally)
-                        .padding(0.dp)
-                ) {
-                    Text(
-                        text = "More Characters",
-                        fontSize = 15.sp,
-                        color = Color(0xFF00315D))
-                }
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 14.dp)
-                        .background(Color.Transparent)
+                        .padding(bottom = 100.dp), // Add some bottom padding to create space for the button
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    if (filteredCharacters.isNotEmpty()) {
-                        items(filteredCharacters.size) {
-                            ItemUi(
-                                itemIndex = it,
-                                characterList = filteredCharacters,
-                                navController = navController,
-                                viewModel = charactersViewModel
+                    Text(
+                        text = "DreamDex",
+                        fontFamily = FontFamily(Font(R.font.bubble_mint)),
+                        textAlign = TextAlign.Center,
+                        fontSize = 20.sp,
+                        color = Color(0xFF00315D),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .clickable { navController.navigate("Home Screen") }
+                    )
+                    Spacer(modifier = Modifier.height(30.dp))
+                    Text(
+                        text = "Characters",
+                        fontFamily = FontFamily(Font(R.font.git_sans)),
+                        textAlign = TextAlign.Center,
+                        fontSize = 45.sp,
+                        color = Color(0xFF00315D),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                    )
+
+                    // Line: Searchbar and Column-mode
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        SearchBar(
+                            query = searchQuery.value,
+                            onSearchQueryChange = { searchQuery.value = it },
+                            modifier = Modifier.weight(1f)
+                        )
+
+                        Button(
+                            onClick = { isTwoColumns.value = !isTwoColumns.value },
+                            modifier = Modifier.width(50.dp).height(48.dp)
+                        ) {
+                            Text(
+                                text = if (isTwoColumns.value) "3" else "2",
+                                fontSize = 15.sp,
+                                color = Color(0xFF00315D)
                             )
                         }
-                    } else {
-                        item {
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = "Sumimasen! No characters found",
-                                    color = Color.Gray)
+                    }
 
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    LazyVerticalGrid(
+                        columns = if (isTwoColumns.value) GridCells.Fixed(2) else GridCells.Fixed(3),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 14.dp)
+                            .background(Color.Transparent)
+                            .weight(1f),
+                        contentPadding = PaddingValues(bottom = 20.dp)
+                    ) {
+                        if (filteredCharacters.isNotEmpty()) {
+                            items(filteredCharacters.size) { index ->
+                                ItemUi(
+                                    itemIndex = index,
+                                    characterList = filteredCharacters,
+                                    navController = navController,
+                                    viewModel = charactersViewModel,
+                                    isTwoColumns = isTwoColumns.value
+                                )
+                            }
+
+                            // "More Characters" button
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 16.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Button(
+                                        onClick = { characterViewModel.loadMoreCharacters() },
+                                        modifier = Modifier.width(170.dp)
+                                    ) {
+                                        Text(
+                                            text = "More Characters",
+                                            fontSize = 15.sp,
+                                            color = Color(0xFF00315D)
+                                        )
+                                    }
+                                }
+                            }
+                        } else {
+                            item {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "Sumimasen! No characters found",
+                                        color = Color.Gray
+                                    )
+                                }
                             }
                         }
                     }
@@ -171,70 +223,83 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
-    query: String,  // query is now passed from the parent composable
-    onSearchQueryChange: (String) -> Unit
+    query: String,
+    onSearchQueryChange: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        TextField(
-            value = query,  // Use the query value passed from the parent
-            onValueChange = onSearchQueryChange,  // Pass the change handler
-            label = { Text(
+    TextField(
+        value = query,
+        onValueChange = onSearchQueryChange,
+        placeholder = {
+            Text(
                 text = "Search Characters",
-                color = Color(0xFFD1C6FF)) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 10.dp)
-                //.height(48.dp)
-                .clip(RoundedCornerShape(40.dp))
-                .background(Color.White.copy(alpha = 0.4f)),
-            singleLine = true,
-            colors = TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
+                fontWeight = FontWeight.Medium,
+                color = Color(0xFF00315D)
             )
+        },
+        modifier = modifier
+            .clip(RoundedCornerShape(40.dp))
+            .height(48.dp)
+            .border(0.5.dp, Color.White, RoundedCornerShape(40.dp)),
+        singleLine = true,
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = "Search",
+                modifier = Modifier.padding(start = 8.dp),
+                tint = Color(0xFF00315D)
+            )
+        },
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
         )
-    }
+    )
 }
+
 
 @Composable
 fun ItemUi(
     itemIndex: Int,
     characterList: List<Data>,
     navController: NavHostController,
-    viewModel: CharactersViewModel
+    viewModel: CharactersViewModel,
+    isTwoColumns: Boolean // Add this parameter
 ) {
     val character = characterList[itemIndex]
     var isFavorite by remember { mutableStateOf(false) }
 
-    // Query favorite status
-        // Ensure the callback is updating the state correctly
-        viewModel.isFavorite(character.id) { isFav ->
-            isFavorite = isFav // Update the isFavorite state
-        }
+    viewModel.isFavorite(character.id) { isFav ->
+        isFavorite = isFav // Update the isFavorite state
+    }
+
+    val cardHeight = if (isTwoColumns) 240.dp else 150.dp
 
     Card(
-        Modifier
-            .wrapContentSize()
-            .padding(10.dp)
+        modifier = Modifier
+            .padding(7.dp)
+            .width(200.dp)
+            .height(cardHeight)
             .clickable { navController.navigate("Details screen/${character.id}") },
+        shape = RoundedCornerShape(15.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
+        Box(modifier = Modifier.fillMaxSize()) {
             AsyncImage(
                 model = character.image.large ?: R.drawable.placeholder_image,
                 contentDescription = character.name.full ?: "Character",
                 modifier = Modifier
-                    .fillMaxSize()
-                    .width(200.dp)
-                    .height(260.dp)
-                    .clip(RoundedCornerShape(15.dp)),
-                contentScale = ContentScale.Crop
+                    .fillMaxSize() // Ensures the image fills the entire card
+                    .clip(RoundedCornerShape(15.dp)), // Clip to match the card's rounded corners
+                contentScale = ContentScale.Crop // Ensures the image scales to cover the entire area
             )
+
             Column(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .background(Color.White.copy(.7f))
+                    .fillMaxWidth()
+                    .background(Color.White.copy(0.7f))
                     .padding(6.dp)
+                    .align(Alignment.BottomStart)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -244,9 +309,10 @@ fun ItemUi(
                         text = character.name.full ?: "Unknown",
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Start,
-                        color = Color(0xFF00315D), // Keep only this one
+                        color = Color(0xFF00315D),
                         fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily(Font(R.font.inter))
+                        fontFamily = FontFamily(Font(R.font.inter)),
+                        fontSize = 13.sp
                     )
 
                     Icon(
@@ -285,12 +351,6 @@ fun ItemUi(
     }
 }
 
-/*@Preview(showBackground = true)
-@Composable
-fun PreviewHomeScreen() {
-    val navController = rememberNavController()
-    HomeScreen(navController = navController)
-}*/
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

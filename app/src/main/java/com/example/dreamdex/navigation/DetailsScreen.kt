@@ -1,6 +1,7 @@
 package com.example.dreamdex.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -89,7 +91,7 @@ fun DetailsScreen(
                 text = character.value!!.name,
                 fontFamily = FontFamily(Font(R.font.git_sans)),
                 color = Color(0xFF00315D),
-                fontSize = 50.sp,
+                fontSize = 45.sp,
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -121,7 +123,8 @@ fun DetailsScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color(0xFF2E2E2E), RoundedCornerShape(20.dp))
+                        .background(color = Color.White.copy(0.5f), RoundedCornerShape(20.dp))
+                        .border(0.5.dp, Color.White, RoundedCornerShape(20.dp))
                         .padding(25.dp)
                         .padding(horizontal = 25.dp),
                     contentAlignment = Alignment.Center
@@ -133,7 +136,7 @@ fun DetailsScreen(
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily(Font(R.font.inter)),
-                        color = Color(0xFFD1C6FF)
+                        color = Color(0xFF00315D)
                     )
                 }
             }
@@ -142,14 +145,15 @@ fun DetailsScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color(0xFF2E2E2E), RoundedCornerShape(20.dp))
+                        .background(color = Color.White.copy(0.5f), RoundedCornerShape(20.dp))
+                        .border(0.5.dp, Color.White, RoundedCornerShape(20.dp))
                         .padding(30.dp),
                 ) {
                     Text(
                         text = it,
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Justify,
-                        color = Color(0xFFD1C6FF)
+                        color = Color(0xFF00315D)
                     )
                 }
             }

@@ -31,14 +31,15 @@ fun BottomNavigationBar(navController: NavHostController) {
     val currentBackStackEntry = navController.currentBackStackEntryAsState()
 
     //val iconColor = Color(0xFF00315D)
-    val iconColor = Color(0xFFD1C6FF)
+    val iconColor = Color(0xFF00315D)
 
     BottomAppBar(
         modifier = Modifier
             .fillMaxWidth()
+            //.height(120.dp)
             .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
-            .background(color = Color.White.copy(0.5f), RoundedCornerShape(20.dp)),
-            //.border(0.5.dp, Color.White, RoundedCornerShape(topEnd = 20.dp, topStart = 20.dp)),
+            .background(color = Color.White.copy(0.1f))
+            .border(0.5.dp, Color.White, RoundedCornerShape(topEnd = 20.dp, topStart = 20.dp)),
         contentPadding = PaddingValues(0.dp),
     ) {
         Row(
@@ -56,7 +57,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 imageVector = homeIcon,
                 contentDescription = "Home",
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(45.dp)
                     .clickable { navController.navigate("CharacterOfTheDayScreen") }
                     .padding(8.dp),
                 tint = iconColor
@@ -65,7 +66,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 imageVector = Icons.Outlined.Star,
                 contentDescription = "Explore",
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(45.dp)
                     .clickable { navController.navigate("Home Screen") }
                     .padding(8.dp),
                 tint = iconColor
@@ -78,7 +79,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 imageVector = favoriteIcon,
                 contentDescription = "Favorites",
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(45.dp)
                     .clickable { navController.navigate("Favorites Screen") }
                     .padding(8.dp),
                 tint = iconColor

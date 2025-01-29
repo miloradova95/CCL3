@@ -54,7 +54,7 @@ fun BannerScreen(navController: NavHostController) {
                 //fontWeight = FontWeight.Thin,
                 color = Color(0xFF00315D),
                 style = TextStyle(
-                    fontSize = 34.sp,
+                    fontSize = 28.sp,
                     /*shadow = Shadow(
                         color = Color(0xFFFC5A03),
                         offset = offset, blurRadius = 3f
