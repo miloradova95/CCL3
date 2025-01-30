@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,10 +17,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -45,6 +49,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 import androidx.navigation.NavHostController
 
@@ -55,135 +60,173 @@ import com.example.dreamdex.db.CharactersViewModel
 
 @Composable
 fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewModel) {
-    val allFavorites by viewModel.favorites.collectAsState() // Complete list of favorites
-    var searchQuery by remember { mutableStateOf("") } // State to store search input
+    val allFavorites by viewModel.favorites.collectAsState()
+    val searchQuery = remember { mutableStateOf("") }
+    val isTwoColumns = remember { mutableStateOf(true) }
+    val listState = rememberLazyGridState()
 
-    // Filtered list based on search query
-    val filteredFavorites = allFavorites.filter {
-        it.name.contains(searchQuery, ignoreCase = true)
+    // Enhanced search logic (matches HomeScreen)
+    val filteredFavorites = allFavorites.filter { favorite ->
+        val fullName = favorite.name ?: ""
+        val nameParts = fullName.split(" ").map { it.lowercase() }
+
+        if (searchQuery.value.isEmpty()) {
+            true // Show all favorites when search is empty
+        } else {
+            val searchLower = searchQuery.value.lowercase()
+            val searchParts = searchLower.split(" ")
+
+            searchParts.all { searchPart ->
+                nameParts.any { namePart -> namePart.startsWith(searchPart) }
+            }
+        }
     }
 
+    val cardHeight = if (isTwoColumns.value) 240.dp else 150.dp
+
     Scaffold(
-        topBar = { TopBar("Favorites")
+        bottomBar = { BottomNavigationBar(navController) },
+        containerColor = Color.Transparent
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 30.dp)
+        ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 30.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top
+                    .fillMaxSize()
+                    .padding(bottom = 100.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                Spacer(modifier = Modifier.height(0.dp))
-
                 Text(
                     text = "DreamDex",
                     fontFamily = FontFamily(Font(R.font.bubble_mint)),
                     textAlign = TextAlign.Center,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Normal,
+                    fontSize = 20.sp,
                     color = Color(0xFF00315D),
                     modifier = Modifier
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                         .clickable { navController.navigate("Home Screen") }
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(30.dp))
                 Text(
                     text = "Favorites",
                     fontFamily = FontFamily(Font(R.font.git_sans)),
                     textAlign = TextAlign.Center,
-                    fontSize = 50.sp,
+                    fontSize = 45.sp,
                     color = Color(0xFF00315D),
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .clickable { navController.navigate("Home Screen") }
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
-                SearchBar(
-                    query = searchQuery,
-                    onQueryChanged = { searchQuery = it },
-                    onClearQuery = { searchQuery = "" }
-                )
-            }
-        },
-        bottomBar = { BottomNavigationBar(navController) },
-        containerColor = Color.Transparent,
-        content = { paddingValues ->
-            if (filteredFavorites.isEmpty()) {
-                Box(
+
+                // Search Bar and Column Toggle Button
+                Row(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues),
-                    contentAlignment = Alignment.Center
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        text = "No favorites found",
-                        color = Color.Gray)
+                    SearchBar(
+                        query = searchQuery.value,
+                        onSearchQueryChange = { searchQuery.value = it },
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    Button(
+                        onClick = { isTwoColumns.value = !isTwoColumns.value },
+                        modifier = Modifier.width(50.dp).height(48.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00315D))
+                    ) {
+                        Text(
+                            text = if (isTwoColumns.value) "〣" else "〢",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
-            } else {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(3),
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 14.dp)
-                        .padding(paddingValues)
-                ) {
-                    items(filteredFavorites.size) { index ->
-                        val favorite = filteredFavorites[index]
 
-                        // Card with navigation logic
-                        Card(
-                            Modifier
-                                .wrapContentSize()
-                                .padding(10.dp)
-                                .clickable { navController.navigate("Details screen/${favorite.id}") },
-                            elevation = CardDefaults.cardElevation(8.dp)
-                        ) {
-                            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
-                                AsyncImage(
-                                    model = favorite.image,
-                                    contentDescription = favorite.name,
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .width(200.dp)
-                                        .height(260.dp)
-                                        .clip(RoundedCornerShape(10.dp)),
-                                    contentScale = ContentScale.Crop
-                                )
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .background(Color.White.copy(.7f))
-                                        .padding(6.dp)
-                                ) {
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        modifier = Modifier.fillMaxWidth()
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Handle empty search results
+                if (filteredFavorites.isEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = "No favorites found", color = Color.Gray)
+                    }
+                } else {
+                    LazyVerticalGrid(
+                        columns = if (isTwoColumns.value) GridCells.Fixed(2) else GridCells.Fixed(3),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 14.dp),
+                        contentPadding = PaddingValues(bottom = 40.dp)
+                    ) {
+                        items(filteredFavorites.size) { index ->
+                            val favorite = filteredFavorites[index]
+
+                            // Card with navigation logic
+                            Card(
+                                Modifier
+                                    .wrapContentSize()
+                                    .padding(7.dp)
+                                    .width(200.dp)
+                                    .height(cardHeight)
+                                    .clickable { navController.navigate("Details screen/${favorite.id}") },
+                                elevation = CardDefaults.cardElevation(8.dp)
+                            ) {
+                                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
+                                    AsyncImage(
+                                        model = favorite.image,
+                                        contentDescription = favorite.name,
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .clip(RoundedCornerShape(10.dp)),
+                                        contentScale = ContentScale.Crop
+                                    )
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .background(Color.White.copy(.7f))
+                                            .padding(6.dp)
                                     ) {
-                                        Text(
-                                            text = favorite.name,
-                                            modifier = Modifier.weight(1f),
-                                            textAlign = TextAlign.Start,
-                                            color = Color.Black,
-                                            fontWeight = FontWeight.Bold,
-                                            fontSize = 14.sp,
-                                            fontFamily = FontFamily(Font(R.font.inter)),
-                                        )
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            modifier = Modifier.fillMaxWidth()
+                                        ) {
+                                            Text(
+                                                text = favorite.name,
+                                                modifier = Modifier.weight(1f),
+                                                textAlign = TextAlign.Start,
+                                                color = Color.Black,
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 14.sp,
+                                                fontFamily = FontFamily(Font(R.font.inter)),
+                                            )
 
-                                        val isFavorite = true // Replace with your logic
+                                            val isFavorite = true
 
-                                        Icon(
-                                            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                                            contentDescription = "Favorite",
-                                            modifier = Modifier
-                                                .size(24.dp)
-                                                .clickable {
-                                                    if (isFavorite) {
-                                                        viewModel.removeFavorite(favorite)
-                                                    } else {
-                                                        viewModel.addFavorite(favorite)
-                                                    }
-                                                },
-                                            tint = Color.Red
-                                        )
+                                            Icon(
+                                                imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                                                contentDescription = "Favorite",
+                                                modifier = Modifier
+                                                    .size(24.dp)
+                                                    .clickable {
+                                                        if (isFavorite) {
+                                                            viewModel.removeFavorite(favorite)
+                                                        } else {
+                                                            viewModel.addFavorite(favorite)
+                                                        }
+                                                    },
+                                                tint = Color.Red
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -192,8 +235,11 @@ fun FavoritesScreen(navController: NavHostController, viewModel: CharactersViewM
                 }
             }
         }
-    )
+    }
 }
+
+
+
 
 @Composable
 fun SearchBar(query: String, onQueryChanged: (String) -> Unit, onClearQuery: () -> Unit) {
@@ -233,3 +279,4 @@ fun SearchBar(query: String, onQueryChanged: (String) -> Unit, onClearQuery: () 
         }
     }
 }
+

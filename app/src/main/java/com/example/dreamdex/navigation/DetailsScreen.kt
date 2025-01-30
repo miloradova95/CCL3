@@ -62,10 +62,9 @@ fun DetailsScreen(
     )
 
 
-    // Fetch the character data using the id
+
 
     if (character.value == null) {
-        // Show an error or loading message if character not found
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
@@ -77,7 +76,6 @@ fun DetailsScreen(
             )
         }
     } else {
-        // Display character details in a scrollable column
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -125,7 +123,7 @@ fun DetailsScreen(
                         .fillMaxWidth()
                         .background(color = Color.White.copy(0.5f), RoundedCornerShape(20.dp))
                         .border(0.5.dp, Color.White, RoundedCornerShape(20.dp))
-                        .padding(25.dp)
+                        .padding(15.dp)
                         .padding(horizontal = 25.dp),
                     contentAlignment = Alignment.Center
                 ) {
@@ -133,7 +131,7 @@ fun DetailsScreen(
                         text = it,
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Center, // Center-align text
-                        fontSize = 20.sp,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily(Font(R.font.inter)),
                         color = Color(0xFF00315D)
@@ -147,12 +145,13 @@ fun DetailsScreen(
                         .fillMaxWidth()
                         .background(color = Color.White.copy(0.5f), RoundedCornerShape(20.dp))
                         .border(0.5.dp, Color.White, RoundedCornerShape(20.dp))
-                        .padding(30.dp),
+                        .padding(18.dp),
                 ) {
                     Text(
                         text = it,
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Justify,
+                        fontWeight = FontWeight.Normal,
                         color = Color(0xFF00315D)
                     )
                 }

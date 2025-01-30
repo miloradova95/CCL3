@@ -7,14 +7,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.Send
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,19 +31,19 @@ import com.google.android.gms.maps.model.Circle
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-    // Get the current route from the NavHostController to determine if we're on the Favorites screen
     val currentBackStackEntry = navController.currentBackStackEntryAsState()
 
-    //val iconColor = Color(0xFF00315D)
     val iconColor = Color(0xFF00315D)
+
+    LaunchedEffect(currentBackStackEntry.value?.destination?.route) {
+    }
 
     BottomAppBar(
         modifier = Modifier
             .fillMaxWidth()
-            //.height(120.dp)
-            .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
-            .background(color = Color.White.copy(0.1f))
-            .border(0.5.dp, Color.White, RoundedCornerShape(topEnd = 20.dp, topStart = 20.dp)),
+            .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+            .background(color = Color.White.copy(0.5f), shape = RoundedCornerShape(20.dp))
+            .border(0.5.dp, Color.White, shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
         contentPadding = PaddingValues(0.dp),
     ) {
         Row(
@@ -62,9 +66,14 @@ fun BottomNavigationBar(navController: NavHostController) {
                     .padding(8.dp),
                 tint = iconColor
             )
+
+            // Browse Icon
+            val isBrowseScreen = currentBackStackEntry.value?.destination?.route == "Home Screen"
+            val browseIcon = if (isBrowseScreen) Icons.Filled.Send else Icons.Outlined.Send
+
             Icon(
-                imageVector = Icons.Outlined.Star,
-                contentDescription = "Explore",
+                imageVector = browseIcon,
+                contentDescription = "Browse",
                 modifier = Modifier
                     .size(45.dp)
                     .clickable { navController.navigate("Home Screen") }
@@ -72,6 +81,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 tint = iconColor
             )
 
+            // Favorites Icon
             val isFavoritesScreen = currentBackStackEntry.value?.destination?.route == "Favorites Screen"
             val favoriteIcon = if (isFavoritesScreen) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder
 

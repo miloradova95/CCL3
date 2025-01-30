@@ -102,7 +102,6 @@ fun HomeScreen(navController: NavHostController, charactersViewModel: Characters
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
-        topBar = { TopBar("Characters") },
         bottomBar = { BottomNavigationBar(navController) },
         content = { paddingValues ->
             Box(
@@ -259,13 +258,13 @@ fun SearchBar(
     TextField(
         value = query,
         onValueChange = onSearchQueryChange,
-        placeholder = {
+        /*placeholder = {
             Text(
                 text = "Search Characters",
                 fontWeight = FontWeight.Medium,
                 color = Color(0xFF00315D),
             )
-        },
+        },*/
         modifier = modifier
             .clip(RoundedCornerShape(40.dp))
             .height(48.dp)
@@ -379,23 +378,4 @@ fun ItemUi(
             }
         }
     }
-}
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopBar(title: String) {
-    TopAppBar(
-        title = {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-
-            }
-        },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Color.Transparent
-        )
-    )
 }
