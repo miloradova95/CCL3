@@ -26,11 +26,13 @@ Fans who enjoy sharing their character preferences with friends and engaging in 
 
 ----------------------------------------------------------------------------------------------------------------
 
+# Initial Mockup
+
 ![Mock up](./Mock%20up/Initial%20Mock%20up.png)
 
 # Heuristic Evaluation
 
-The heuristic evaluation is based on the initial mockup above
+The heuristic evaluation is based on the initial mockup.
 
 ### 1. Visibility of System Status:
 
