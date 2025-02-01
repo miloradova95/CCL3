@@ -97,7 +97,7 @@ fun CharacterOfTheDayScreen(navController: NavHostController) {
                     )
                     Spacer(modifier = Modifier.height(30.dp))
                     Text(
-                        text = "Characters",
+                        text = "Character",
                         fontFamily = FontFamily(Font(R.font.git_sans)),
                         textAlign = TextAlign.Center,
                         fontSize = 45.sp,
