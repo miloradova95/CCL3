@@ -30,6 +30,8 @@ Fans who enjoy sharing their character preferences with friends and engaging in 
 
 # Heuristic Evaluation
 
+The heuristic evaluation is based on the initial mockup above
+
 ### 1. Visibility of System Status:
 
 The bottom menu navigation includes icons that inform users about their current location within the app. When a user navigates to a page, the corresponding icon transitions from an outlined icon to a filled icon, providing clear visual feedback about the selected page. This design ensures users always know where they are in the app.
