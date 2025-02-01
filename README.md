@@ -26,9 +26,7 @@ Fans who enjoy sharing their character preferences with friends and engaging in 
 
 ----------------------------------------------------------------------------------------------------------------
 
-
-
-
+![Mock up](images/mock-up.png)
 
 # Heuristic Evaluation
 
@@ -254,24 +252,23 @@ Confidence: “How confident did you feel completing this task?” (1 = Very Con
 
 1.) I think that I would like to use this system frequently.
 
-2.) I thought the system was easy to use.
+2.) I found the system complex.
 
-3.) thought there was too much inconsistency in this system.
+3.) I thought there was consistency in this system.
 
-4.) would imagine that most people would learn to use this system very quickly.
+4.) I think most people would find this system difficult to learn.
 
-5.) felt very confident using the system.
+5.) I felt very confident using the system.
 
-6.) The feedback provided (e.g., icons, notifications) was helpful and timely.
+6.) The feedback provided (e.g., icons, notifications) was not helpful.
 
 7.) The app's design is visually appealing.
 
-8.) The icons used in the app were familiar and easy to understand.
+8.) The icons used in the app were difficult to understand.
 
 9.) I always knew where I was in the app.
 
-10.) I felt the app had all the functionality I needed. 
-Open-Ended Question: Is there a feature you wish the app had?
+10.) I felt the app lacked important functionality.
 
 
 # Documentation:
@@ -371,7 +368,14 @@ For the rest of the day, I focused on adding the finishing touches to the app's 
 
 ### Aleks:
 
-I worked on the presentation and continued fine-tuning the features we had implemented so far. Unfortunately I failed to fix the Details Screen when accessing from the Home Screen after loading more characters.
+I worked on the presentation and continued fine-tuning the features we had implemented so far. Unfortunately, I failed to fix the Details Screen when accessing from the Home Screen after loading more characters.
+
+----------------------------------------------------------------------------------------------------------------
+
+# Presentation Day
+
+
+
 
 # Reflection Tiffany
 In hindsight, not asking for help earlier really backfired on us. We both wanted to solve the issue ourselves, but asking for help sooner would have saved us time and frustration. It turned out to be a valuable learning experience, although a frustrating one.
