@@ -169,18 +169,7 @@ DV: Users’ ability to orient themselves and complete tasks efficiently.
 
 ### Task-based Usability Testing:
 
-**Task 1: Filtering**
-
-Scenario: You want to find characters aged 30 by using the filter option.
-
-Goal: Apply the filter to display only characters aged 30.
-
-Success Criteria: 
-- Time on Task: time taken to locate and set filter.
-- Task completion rate: percentage of users successfully applying the correct age filter.
-- Could the user complete this confidently?
-
-**Task 2: Details Page**
+**Task 1: Details Page**
 
 Scenario: You want to learn more about the 'Character of the Day.'
 
@@ -191,7 +180,7 @@ Success Criteria:
 - Task completion rate: percentage of users successfully accessing the correct details page.
 - Instances of pauses or confusion during navigation.
 
-**Task 3: Search and Favorite**
+**Task 2: Search and Favorite**
 
 Scenario: You search for “Luffy” and add him to your favorites.
 
@@ -202,7 +191,7 @@ Success Criteria:
 - Task completion rate: percentage of users successfully finding and adding Luffy to Favorites and confirming the action.
 - Were users confident in searching and favoriting characters?
 
-**Task 4: Unfavoriting a Character**
+**Task 3: Unfavoriting a Character**
 
 Scenario: You decide to remove “Luffy” from your Favorites.
 
@@ -212,18 +201,6 @@ Success Criteria:
 - Time on Task: time taken to locate Luffy in Favorites and unfavorite him.
 - Task completion rate: percentage of users successfully removing Luffy from Favorites.
 - Did the user hesitate during the process of unfavoriting?
-
-**Task 5: Guide for Beginners**
-
-Scenario: You’re a new user and want to find a guide that explains how to use the app.
-
-Goal: Locate and access the “Guide for Beginners”.
-
-Success Criteria: 
-- Time on Task: time taken to locate the guide.
-- Task completion rate: percentage of users successfully finding and opening the guide.
-- Did the user find the guide easily confidentally?
-*This step is last to assess if users were able to complete the previous tasks without needing external help or guidance.
 
 ### Metrics and Observations:
 
@@ -374,16 +351,19 @@ I worked on the presentation and continued fine-tuning the features we had imple
 
 ----------------------------------------------------------------------------------------------------------------
 
-# Presentation Day
+# Presentation Day – APK
 
+[Download DreamDex APK](./APK%20old/DreamDex.apk)
 
+## Reflection – Tiffany
 
-
-# Reflection Tiffany
 In hindsight, not asking for help earlier really backfired on us. We both wanted to solve the issue ourselves, but asking for help sooner would have saved us time and frustration. It turned out to be a valuable learning experience, although a frustrating one.
 The API also presented some challenges. While it provided good information on the characters, the pagination issue made things more complicated. It prevented us from implementing a filtering option, and we can’t search for every character. Despite this, AniList turned out to be one of the best APIs for anime characters, so we knew it wasn't going to get any better. We just didn’t anticipate the challenges with pagination, as we hadn’t faced this issue with other APIs, but then again, they didn't have this much data.
 
-# Reflection Aleks
+Presenting the app to our colleagues and receiving their feedback gave us a fresh sense of motivation to continue improving the application. Mr. De Jesus helped us see our project in a new light. Initially, the limitation of only being able to pull 50 characters at a time, and being restricted to searching only within that small set, seemed like a setback. However, we realized that this challenge was actually an opportunity to enhance the experience. We decided to embrace the idea that browsing through a wide variety of characters (50 characters at a time) whether discovering new ones or finding familiar favorites, was part of the fun. In fact, our colleagues who tried out the app found it enjoyable to endlessly scroll through the characters to see which characters would be presented to them, adding an element of exploration and excitement to the experience.
+
+## Reflection – Aleks
+
 The workflow for the CCL3 started off smoothly, with everything progressing as planned. Challenges began; when we realized that the Jikan API did not meet our needs, forcing us to switch to the AniList API. This transition introduced struggles, as the existing code had to be refactored to accommodate GraphQL, which was a significant shift from the previous REST-based approach.
 One of the biggest hurdles was pagination, as AniList’s API structure made it more complicated than expected. Handling data retrieval and ensuring switching between pages, while maintaining core functionalities became a challenge. Additionally, implementing the Room database in the second week of the CCL3 proved to be way too late, making integration difficult and adding further complexity to the project.
 Despite our efforts, we were unable to fully fix the details page for characters that were not on the first page of the home screen. This limitation highlighted the need for a better approach to handling dynamic data loading and navigation.
