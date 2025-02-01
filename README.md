@@ -330,7 +330,10 @@ When I hearted a character, the outline heart icon would fill, and the character
 
 On Wednesday, I continued working on the app. We decided to switch from the ‘Character of the Day’ feature, which was complicated by tricky timestamps, to a ‘Random Character Generator’ instead. In addition to that, I focused on pagination issues: The AniList API uses pagination, so we had to implement it in our app. This led to several challenges: we couldn’t create a filtering option as it would only filter the first page, and the search function was limited to searching characters on the first page as well.
 Once the database issue was resolved, I pulled the database to my branch and merged the work I had done throughout the day. Since characters weren’t being saved to the favorites screen, I was able to fix that. I also added a search function to the favorites screen, allowing users to look through their saved characters. Additionally, I created a “more characters” button to allow users to access other pages of characters.
+
 Even though the favorite characters now appeared on the correct screen, there was still an issue: the favorite page wouldn’t refresh, so newly added characters weren’t displayed. 
+
+For the rest of the day, I focused on collecting data for the user tests. I conducted tests with three people in person. As we’re still working on the app, we plan to incorporate the users' feedback after the presentation.
 
 # Thursday, 23rd January 2025:
 
@@ -338,12 +341,13 @@ Even though the favorite characters now appeared on the correct screen, there wa
 
 We both went to the FH to get help with fixing the issue on the favorites screen, and once again, Katharina was a lifesaver. She helped us resolve the problem, and we also added the anime titles to the character details page, as we thought users would appreciate knowing the origin of the characters.
 However, as we moved forward, we encountered another issue. When navigating to a character page after browsing from the first page of the character list, and clicking on a character to view their details, the page appeared empty. We could only access the details page from characters listed on the first page of the browsing screen, the favorites list, and the random character generator. Interestingly, if we favorited a character from the second page and viewed them in the favorites section, their information would display correctly. 
+
 The Problem:
 The issue stemmed from the fact that the home and favorites screen, both had their own ViewModel. The other screens were sharing one ViewModel, which caused the data not to be correctly passed or displayed. We realized that we needed to create separate ViewModels for each screen to ensure the correct data would be passed and shown on each page.
 
 ### Tiffany:
 
-For the rest of the day, I focused on adding the finishing touches to the app's UI design in preparation for the final presentation.
+For the rest of the day, I focused on adding the finishing touches to the app's UI design in preparation for the final presentation. Additionally, I conducted two user tests.
 
 ### Aleks:
 
@@ -382,20 +386,44 @@ After the presentation, we continued refining the app, making significant design
 
 As endless scrolling became a key feature of the app, alongside the ability to favorite characters, we introduced a column layout option. This feature enables users to easily toggle between a two- or three-column view (the characters are displayed in card format). The button to switch layouts is conveniently placed next to the search bar for quick access.
 
-### Search bar
+### Search bar:
 
 We also improved the search bar functionality. Previously, typing a letter would display any character that contained that letter somewhere in their name. Now, the search bar has been optimized to deliver more accurate results, improving the overall user experience. 
 
-### More Characters buttons
+### More Characters buttons:
 
 Previously, the 'More Characters' button was fixed at the top of the page. While this meant users didn’t need to scroll back up to load more characters, it still created an inconvenience. After pressing "Load More," the user would have to manually scroll back up to view the newly loaded list of 50 characters (since we only display 50 characters at a time).
 
-To solve this, we repositioned the "More Characters" button to the bottom of the character list. Now, it appears as the card in the character list column, just like the characters themselves. When pressed, it takes the user back to the top of the page to view the newly loaded character list. This change allows users to seamlessly scroll through the characters without any interruptions.
+To address this issue, we repositioned the "More Characters" button to the bottom of the character list, where it now appears as a card, just like the characters themselves. When pressed, it smoothly brings the user back to the top of the page to view the newly loaded character list. This change ensures a more seamless scrolling experience, allowing users to explore new characters without interruptions.
 
+### Character Randomizer:
 
+Previously, users could only access a random character by pressing the home icon. Now, we've introduced a dedicated 'Randomize' Button. With each click, users are presented with a new character.
 
+### Troubles:
+
+For some reason, the bottom navigation bar wouldn't display the styling we assigned to it. It was meant to have a transparent design, similar to the navbar and character detail boxes. Although the difference isn't stark, it was still frustrating not to get it fixed.
+
+Additionally, the middle icon wouldn't display the desired icon when pressed. We ended up using the outline paper airplane icon from Jetpack, which, while not the most intuitive symbol for discovery, was chosen due to time constraints.
+
+### User Testing:
+
+Once we had developed an app that we were satisfied with, we proceeded with user testing. We conducted interviews with five new participants. Although we had previously tested the app with the same number of participants based on the initial mockup, we decided to discard their feedback. The concept of the app had changed since then, so their input wouldn't be as relevant. We interviewed the same group of people again.
+
+All the interviews were conducted in person, as we had access to the appropriate mobile device for displaying the app. In-person testing proved to be more effective, as it allowed us to observe the participants' reactions and behavior in real-time. We received valuable and constructive feedback that would help us make further improvements to the app.
+
+If this app is further developed in the future, these steps would be targeted for improvement: 
+- adding the option to group favorited characters
+- fixing the display of character information on the details page (particularly the issues with underscores)
+- resolving the bug that prevents users from viewing the details page of characters who appear after the first page
+- adding a heart icon on the details page for favoriting characters
+- incorporating pagination to allow users to jump directly between different pages.
+- Fixing the bottom navigation explore icon and its design
+
+----------------------------------------------------------------------------------------------------------------
+
+# Usability Report
 
 [Usability Report](Usability%20Report/Usability%20Report.pdf)
-
 
 
