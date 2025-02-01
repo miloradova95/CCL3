@@ -26,6 +26,10 @@ Fans who enjoy sharing their character preferences with friends and engaging in 
 
 ----------------------------------------------------------------------------------------------------------------
 
+
+
+
+
 # Heuristic Evaluation
 
 ### 1. Visibility of System Status:
@@ -290,7 +294,7 @@ On Tuesday, we began testing the Jikan API. While it provided some character dat
 
 ### Aleks: 
 
-After confirming that the API was functional and appropriate for our needs, I began developing our application, DreamDex. I integrated the API by fetching data from AniList, ensuring we could access detailed information about anime characters…
+After confirming that the API was functional and appropriate for our needs, I began developing our application, DreamDex. I integrated the API by fetching data from AniList, ensuring we could access detailed information about anime characters. It turned out to be quite a challenge, since the AniList API used the GraphQL approach instead of the familiar REST API.
 
 ### Tiffany:
 
@@ -301,13 +305,14 @@ I focused on designing the app’s pages and creating mockups that bring our con
 ### Aleks and Tiffany:
 
 We began developing a usability test plan to ensure the app's functionality and design met user expectations. During a heuristics evaluation of our initial mockups, we identified several key usability improvements:
-Adding a "Confirm Favoriting Action" prompt.
-Touching up the filtering options for characters.
-Including a search function within the favorites screen as well.
-Adjusting icon designs to stand out more prominently against the background.
-Displaying the anime title alongside each character name for added context.
+- Adding a "Confirm Favoriting Action" prompt.
+- Touching up the filtering options for characters.
+- Including a search function within the favorites screen as well.
+- Adjusting icon designs to stand out more prominently against the background.
+- Displaying the anime title alongside each character name for added context.
 Our user test plan aimed to assess user confidence while navigating the app. To achieve this, we measured task completion rates, observed signs of hesitation or frustration, and collected user ratings using the Single Ease Question (SEQ) to assess the perceived difficulty of each task and their confidence levels. To gather additional insights, we incorporated a System Usability Scale (SUS) evaluation, which could provide feedback beyond what task observations alone might reveal.
-Saturday, 18th  – Tuesday, 21st January 2025
+
+# Saturday, 18th  – Tuesday, 21st January 2025
 
 ### Aleks and Tiffany:
 
@@ -329,7 +334,8 @@ Since there were still issues with the database, we decided to switch tasks. I t
 
 ## Wednesday, 22nd January 2025:
 
-Aleks and Tiffany:
+### Aleks and Tiffany:
+
 Both of us had tried solutions suggested by ChatGPT and Stack Overflow, but each attempt only led to new errors.
 Main Error: 
 java.lang.IllegalAccessError: superclass access check failed: class org.jetbrains.kotlin.kapt3.base.javac.KaptJavaCompiler (in unnamed module @0x4f4c104b) cannot access class com.sun.tools.javac.main.JavaCompiler (in module jdk.compiler) because module jdk.compiler does not export com.sun.tools.javac.main to unnamed module @0x4f4c104b
@@ -348,9 +354,9 @@ When I hearted a character, the outline heart icon would fill, and the character
 
 On Wednesday, I continued working on the app. We decided to switch from the ‘Character of the Day’ feature, which was complicated by tricky timestamps, to a ‘Random Character Generator’ instead. In addition to that, I focused on pagination issues: The AniList API uses pagination, so we had to implement it in our app. This led to several challenges: we couldn’t create a filtering option as it would only filter the first page, and the search function was limited to searching characters on the first page as well.
 Once the database issue was resolved, I pulled the database to my branch and merged the work I had done throughout the day. Since characters weren’t being saved to the favorites screen, I was able to fix that. I also added a search function to the favorites screen, allowing users to look through their saved characters. Additionally, I created a “more characters” button to allow users to access other pages of characters.
-Even though the favorite characters now appeared on the correct screen, there was still an issue: the favorite page wouldn’t refresh, so newly added characters weren’t displayed.
-For the rest of the day, I focused on collecting data for the user tests. I conducted tests with three people in person. As we’re still working on the app, we plan to incorporate the users' feedback after the presentation.
-Thursday, 23rd January 2025:
+Even though the favorite characters now appeared on the correct screen, there was still an issue: the favorite page wouldn’t refresh, so newly added characters weren’t displayed. 
+
+# Thursday, 23rd January 2025:
 
 ### Aleks and Tiffany:
 
@@ -358,15 +364,23 @@ We both went to the FH to get help with fixing the issue on the favorites screen
 However, as we moved forward, we encountered another issue. When navigating to a character page after browsing from the first page of the character list, and clicking on a character to view their details, the page appeared empty. We could only access the details page from characters listed on the first page of the browsing screen, the favorites list, and the random character generator. Interestingly, if we favorited a character from the second page and viewed them in the favorites section, their information would display correctly. 
 The Problem:
 The issue stemmed from the fact that the home and favorites screen, both had their own ViewModel. The other screens were sharing one ViewModel, which caused the data not to be correctly passed or displayed. We realized that we needed to create separate ViewModels for each screen to ensure the correct data would be passed and shown on each page.
-Tiffany:
-For the rest of the day, I focused on adding the finishing touches to the app's UI design in preparation for the final presentation. Additionally, I conducted two user tests.
+
+### Tiffany:
+
+For the rest of the day, I focused on adding the finishing touches to the app's UI design in preparation for the final presentation.
 
 ### Aleks:
 
-I worked on the presentation and continued fine-tuning the features we we had implemented so far.
-Notes:
+I worked on the presentation and continued fine-tuning the features we had implemented so far. Unfortunately I failed to fix the Details Screen when accessing from the Home Screen after loading more characters.
+
+# Reflection Tiffany
 In hindsight, not asking for help earlier really backfired on us. We both wanted to solve the issue ourselves, but asking for help sooner would have saved us time and frustration. It turned out to be a valuable learning experience, although a frustrating one.
-The API also presented some challenges. While it provided good information on the characters, the pagination issue made things more complicated. It prevented us from implementing a filtering option, and we can’t search for every character. Despite this, AniList turned out to be one of the best APIs for anime characters, so we knew it wasn't going to get any better. We just didn’t anticipate the challenges with pagination, as we hadn’t faced this issue with other APIs. It makes sense in hindsight: without pagination, we would be dealing with over 17,000 characters.
+The API also presented some challenges. While it provided good information on the characters, the pagination issue made things more complicated. It prevented us from implementing a filtering option, and we can’t search for every character. Despite this, AniList turned out to be one of the best APIs for anime characters, so we knew it wasn't going to get any better. We just didn’t anticipate the challenges with pagination, as we hadn’t faced this issue with other APIs, but then again, they didn't have this much data.
+
+# Reflection Aleks
+The workflow for the CCL3 started off smoothly, with everything progressing as planned. Challenges began; when we realized that the Jikan API did not meet our needs, forcing us to switch to the AniList API. This transition introduced struggles, as the existing code had to be refactored to accommodate GraphQL, which was a significant shift from the previous REST-based approach.
+One of the biggest hurdles was pagination, as AniList’s API structure made it more complicated than expected. Handling data retrieval and ensuring switching between pages, while maintaining core functionalities became a challenge. Additionally, implementing the Room database in the second week of the CCL3 proved to be way too late, making integration difficult and adding further complexity to the project.
+Despite our efforts, we were unable to fully fix the details page for characters that were not on the first page of the home screen. This limitation highlighted the need for a better approach to handling dynamic data loading and navigation.
 
 
 
