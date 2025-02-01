@@ -392,7 +392,7 @@ As endless scrolling became a key feature of the app, alongside the ability to f
 
 We also improved the search bar functionality. Previously, typing a letter would display any character that contained that letter somewhere in their name. Now, the search bar has been optimized to deliver more accurate results, improving the overall user experience. 
 
-### More Characters buttons:
+### 'More Characters' button:
 
 Previously, the 'More Characters' button was fixed at the top of the page. While this meant users didn’t need to scroll back up to load more characters, it still created an inconvenience. After pressing "Load More," the user would have to manually scroll back up to view the newly loaded list of 50 characters (since we only display 50 characters at a time).
 
