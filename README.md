@@ -372,9 +372,30 @@ Despite our efforts, we were unable to fully fix the details page for characters
 
 # Post-Presentation
 
-### Aleks and Tiffany
+## Aleks and Tiffany
 
-After the presentation, we continued working on the 
+### Design: 
+
+After the presentation, we continued refining the app, making significant design updates that aligned more closely with our original vision from the initial mockup.
+
+### Column:
+
+As endless scrolling became a key feature of the app, alongside the ability to favorite characters, we introduced a column layout option. This feature enables users to easily toggle between a two- or three-column view (the characters are displayed in card format). The button to switch layouts is conveniently placed next to the search bar for quick access.
+
+### Search bar
+
+We also improved the search bar functionality. Previously, typing a letter would display any character that contained that letter somewhere in their name. Now, the search bar has been optimized to deliver more accurate results, improving the overall user experience. 
+
+### More Characters buttons
+
+Previously, the 'More Characters' button was fixed at the top of the page. While this meant users didn’t need to scroll back up to load more characters, it still created an inconvenience. After pressing "Load More," the user would have to manually scroll back up to view the newly loaded list of 50 characters (since we only display 50 characters at a time).
+
+To solve this, we repositioned the "More Characters" button to the bottom of the character list. Now, it appears as the card in the character list column, just like the characters themselves. When pressed, it takes the user back to the top of the page to view the newly loaded character list. This change allows users to seamlessly scroll through the characters without any interruptions.
+
+
+
+
+[Usability Report](Usability%20Report/Usability%20Report.pdf)
 
 
 
