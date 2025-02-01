@@ -4,15 +4,15 @@
 Aleksandar Miloradovic & Tiffany Müller
 
 # Description
-The app allows fans and fiction enthusiasts to discover their favorite characters and save them to a personalized favorites list. Users can share their favorite characters with other fans and bond over their shared love for the most iconic figures in the world of fiction.
+The app allows fans and fiction enthusiasts to discover their favorite characters and save them to a personalized favorites list. 
 
 ----------------------------------------------------------------------------------------------------------------
 # Use Case
-DreamDex serves as an interactive platform for anime and manga enthusiasts who wish to curate personal collections of their favourite characters. The app will utilize the AniList, as it provides detailed character data. 
+DreamDex serves as an interactive platform for anime and manga enthusiasts who wish to curate a personal collection of their favourite characters. The app will utilize the AniList, as it provides detailed character data. 
 
-The app offers a seamless experience for users to search, explore, filter, and discover characters based on various attributes. Users can view detailed information about each character, add them to personalized lists, and revisit their favorites anytime. With its engaging "Character of the Day" feature on the landing page, DreamDex ensures a fresh and dynamic user experience, encouraging users to venture beyond their existing favourites.
+The app provides an engaging, interactive experience that allows users to explore a vast collection of over 17,000 characters. A standout feature is the absence of direct search functionality, meaning users must explore the app and discover new characters along the way, which can become quite addictive. As they browse, users can delve deeper into each character's details and curate a personalized collection by adding their favorites. The "Character Randomizer" feature adds an element of fun and spontaneity, encouraging users to venture beyond their usual picks. It's also perfect for those who are indecisive and enjoy being surprised with a random character suggestion.
 
-Designed to appeal to both casual viewers and dedicated fans, DreamDex provides an intuitive interface that simplifies character discovery and organization. Whether users aim to build a nostalgic archive, explore new series, or share their curated lists with friends, DreamDex delivers an immersive and enjoyable experience. Androids Room Database will provide a lightweight database that stores users’ personal character lists locally.
+Designed to appeal to both casual viewers and dedicated fans, DreamDex provides an intuitive interface that simplifies character discovery and organization. Whether users aim to build a nostalgic archive, or explore new series, DreamDex delivers an immersive and enjoyable experience. Androids Room Database will provide a lightweight database that stores users’ personal character lists locally.
 
 # Target Users
 Anime and Manga Viewers:
@@ -171,9 +171,9 @@ DV: Users’ ability to orient themselves and complete tasks efficiently.
 
 **Task 1: Details Page**
 
-Scenario: You want to learn more about the 'Character of the Day.'
+Scenario: You want to learn more about the 'Character Randomizer.'
 
-Goal: Navigate to the details page of the 'Character of the Day.'
+Goal: Navigate to the details page of the 'Character Randomizer.'
 
 Success Criteria: 
 - Time on Task: time taken to locate and open the details page.
@@ -368,7 +368,13 @@ The workflow for the CCL3 started off smoothly, with everything progressing as p
 One of the biggest hurdles was pagination, as AniList’s API structure made it more complicated than expected. Handling data retrieval and ensuring switching between pages, while maintaining core functionalities became a challenge. Additionally, implementing the Room database in the second week of the CCL3 proved to be way too late, making integration difficult and adding further complexity to the project.
 Despite our efforts, we were unable to fully fix the details page for characters that were not on the first page of the home screen. This limitation highlighted the need for a better approach to handling dynamic data loading and navigation.
 
+----------------------------------------------------------------------------------------------------------------
 
+# Post-Presentation
+
+### Aleks and Tiffany
+
+After the presentation, we continued working on the 
 
 
 
