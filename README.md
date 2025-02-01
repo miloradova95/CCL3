@@ -26,7 +26,7 @@ Fans who enjoy sharing their character preferences with friends and engaging in 
 
 ----------------------------------------------------------------------------------------------------------------
 
-![Mock up](images/mock-up.png)
+![Mock up](./Mock%20up/Initial%20Mock%20up.png)
 
 # Heuristic Evaluation
 
